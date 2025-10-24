@@ -1,0 +1,37 @@
+{
+    "projects": [
+        {
+            "id": "vet-inventory",
+            "title": "Vet Inventory System",
+            "brief": "Mobile-first inventory app for surgery supplies with fast search and role-based tools.",
+            "tech": [
+                "React",
+                "Express",
+                "MySQL",
+                "JWT",
+                "Tailwind"
+            ],
+            "links": {
+                "demo": "https://example.com/demo",
+                "github": "https://github.com/Cbuzza90/VetInventorySystem",
+                "caseStudy": "/projects/vet-inventory"
+            }
+        },
+        {
+            "id": "portfolio",
+            "title": "This Portfolio",
+            "brief": "Vite + React + Tailwind on GitHub Pages.",
+            "tech": [
+                "Vite",
+                "React",
+                "Tailwind",
+                "GitHub Pages"
+            ],
+            "links": {
+                "demo": "https://cbuzza90.github.io/",
+                "github": "https://github.com/Cbuzza90/cbuzza90.github.io",
+                "caseStudy": "/projects/vet-inventory"
+            }
+        }
+    ]
+}
