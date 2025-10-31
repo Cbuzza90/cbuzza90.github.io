@@ -4,6 +4,7 @@
             "id": "vet-inventory",
             "title": "Vet Inventory System",
             "brief": "Mobile-first inventory app for surgery supplies with fast search and role-based tools.",
+            "category": "apps",
             "tech": [
                 "React",
                 "Express",
@@ -21,6 +22,7 @@
             "id": "portfolio",
             "title": "This Portfolio",
             "brief": "Vite + React + Tailwind on GitHub Pages.",
+            "category": "websites",
             "tech": [
                 "Vite",
                 "React",

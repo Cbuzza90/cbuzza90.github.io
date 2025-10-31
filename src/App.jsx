@@ -1,28 +1,13 @@
-import { Routes, Route, Link, NavLink } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import VetInventory from './pages/projects/VetInventory.jsx'
+import Projects from './pages/Projects.jsx';
 
-function Nav() {
-  const link = 'px-3 py-2 rounded-lg text-sm font-medium hover:bg-zinc-100 transition'
-  const active = 'bg-zinc-900 text-white hover:bg-zinc-900'
-  return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
-      <nav className="container flex items-center justify-between py-3">
-        <Link to="/" className="font-semibold">Chris Buzza</Link>
-        <div className="flex gap-1">
-          <NavLink to="/" end className={({ isActive }) => `${link} ${isActive ? active : ''}`}>Home</NavLink>
-          <a href="#contact" className={link}>Contact</a>
-          <a href="https://github.com/Cbuzza90" target="_blank" rel="noreferrer" className={link}>GitHub</a>
-        </div>
-      </nav>
-    </header>
-  )
-}
 
 function Footer() {
   return (
-    <footer className="border-t mt-16">
-      <div className="container py-8 text-sm text-zinc-500">
+    <footer className="border-t dark:border-zinc-800 mt-16">
+      <div className="container py-8 text-sm text-zinc-500 dark:text-zinc-400">
         © {new Date().getFullYear()} Chris Buzza. Built with React, Tailwind, and GitHub Pages.
       </div>
     </footer>
@@ -31,12 +16,14 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-dvh flex flex-col">
-      <Nav />
+    <div className="min-h-dvh flex flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      {/* <- removed <Nav /> here */}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/projects/vet-inventory" element={<VetInventory />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:category" element={<Projects />} />
+
         </Routes>
       </main>
       <Footer />
