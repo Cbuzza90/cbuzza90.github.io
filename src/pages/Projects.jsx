@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import Section from "../components/Section.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
-import Header from '../components/header.jsx'
+import Header from '../components/Header.jsx'
 
 const CATEGORIES = [
     { key: "all", label: "All" },
