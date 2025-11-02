@@ -46,8 +46,8 @@ export default function Home() {
                                 Hi, I’m Chris Buzza.
                             </h1>
                             <p className="mt-4 text-zinc-600 dark:text-zinc-300">
-                                I build clean, practical web apps. I love <span className="font-medium">React → Express → MySQL</span>,
-                                and I document my work with clear case studies.
+                                <span className="font-medium">React → Express → MySQL</span>,
+
                             </p>
                             <div className="mt-6 flex gap-3">
                                 <a href="#selected-projects" className="px-4 py-2 rounded-lg bg-zinc-900 text-white text-sm dark:bg-white dark:text-zinc-900">See Projects</a>
