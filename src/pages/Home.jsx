@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Section from '../components/Section.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
-import Header from '../components/header.jsx'
+import Header from '../components/Header.jsx'
 import AnimatedTopBanner from '../components/AnimatedTopBanner.jsx'
 
 
