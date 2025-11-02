@@ -55,7 +55,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="rounded-2xl border dark:border-zinc-800 aspect-video bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center text-zinc-400">
-                            <span className="text-sm">Add a hero image or logo later</span>
+                            <span className="text-sm">ADD IMAGE HERE?</span>
                         </div>
                     </div>
                 </div>
