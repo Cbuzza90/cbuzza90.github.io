@@ -42,18 +42,7 @@ export default function Home() {
                 subtitle="Pick a lane to dive deeper"
             >
                 <div className="grid md:grid-cols-3 gap-5">
-                    <DevTypeButton
-                        href="/web"
-                        title="Web Development"
-                        icon={
-                            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
-                                <path d="M3 5h18v14H3zM3 9h18M9 19V9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        }
-                    >
-                        Responsive sites and full-stack apps using Vite/React and clean deployments.
-                    </DevTypeButton>
-
+                    {/* Game Development */}
                     <DevTypeButton
                         href="/game"
                         title="Game Development"
@@ -67,6 +56,7 @@ export default function Home() {
                         Prototypes, tools, design docs, and builds for web or desktop.
                     </DevTypeButton>
 
+                    {/* App Development */}
                     <DevTypeButton
                         href="/app"
                         title="App Development"
@@ -79,8 +69,22 @@ export default function Home() {
                     >
                         Cross-platform apps & PWAs with offline support and robust auth.
                     </DevTypeButton>
+
+                    {/* Web Development */}
+                    <DevTypeButton
+                        href="/web"
+                        title="Web Development"
+                        icon={
+                            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
+                                <path d="M3 5h18v14H3zM3 9h18M9 19V9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        }
+                    >
+                        Responsive sites and full-stack apps using Vite/React and clean deployments.
+                    </DevTypeButton>
                 </div>
             </Section>
+
 
             {/* Contact */}
             <Section id="contact" title="Contact" subtitle="Let’s talk about your project">

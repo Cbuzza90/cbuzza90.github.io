@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import VetInventory from './pages/projects/VetInventory.jsx'
 import Projects from './pages/Projects.jsx';
+import Game from './pages/Game.jsx';
 
 
 function Footer() {
@@ -21,6 +21,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/game" element={<Game />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:category" element={<Projects />} />
 
