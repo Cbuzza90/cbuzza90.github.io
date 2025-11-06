@@ -20,20 +20,69 @@ function ThemeToggle() {
     );
 }
 
+const quickItems = [
+    {
+        href: "/app",
+        title: "App Development",
+        desc: "Cross-platform apps & PWAs with offline support.",
+        icon: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
+                <circle cx="12" cy="18" r="1" fill="currentColor" />
+            </svg>
+        ),
+    },
+    {
+        href: "/web",
+        title: "Web Development",
+        desc: "React (Vite) frontends + Express APIs.",
+        icon: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 9h18M9 19V9" />
+            </svg>
+        ),
+    },
+    {
+        href: "/game",
+        title: "Game Development",
+        desc: "Prototypes, tools, and UI for web/desktop.",
+        icon: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="3.5" y="6.5" width="17" height="11" rx="3" />
+                <path d="M8 9h2M8 15h2M14 10h2M14 14h2" />
+            </svg>
+        ),
+    },
+];
+
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [openMobile, setOpenMobile] = useState(false);
+    const [openQuick, setOpenQuick] = useState(false);            // desktop Quick Nav
+    const [openQuickMobile, setOpenQuickMobile] = useState(false); // mobile Quick Nav
     const menuRef = useRef(null);
+    const quickRef = useRef(null);
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 10));
 
-    // Close on ESC or click outside (mobile)
+    // Close on ESC or click outside
     useEffect(() => {
-        function onKey(e) { if (e.key === "Escape") setOpen(false); }
+        function onKey(e) {
+            if (e.key === "Escape") {
+                setOpenMobile(false);
+                setOpenQuick(false);
+                setOpenQuickMobile(false);
+            }
+        }
         function onClick(e) {
-            if (!open) return;
-            if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
+            if (openMobile && menuRef.current && !menuRef.current.contains(e.target)) {
+                setOpenMobile(false);
+            }
+            if (openQuick && quickRef.current && !quickRef.current.contains(e.target)) {
+                setOpenQuick(false);
+            }
         }
         document.addEventListener("keydown", onKey);
         document.addEventListener("mousedown", onClick);
@@ -41,10 +90,9 @@ export default function Header() {
             document.removeEventListener("keydown", onKey);
             document.removeEventListener("mousedown", onClick);
         };
-    }, [open]);
+    }, [openMobile, openQuick]);
 
-    const link =
-        "px-3 py-2 rounded-lg text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition";
+    const link = "px-3 py-2 rounded-lg text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition";
 
     return (
         <div className="sticky top-0 z-50">
@@ -65,17 +113,71 @@ export default function Header() {
                     {/* Desktop nav */}
                     <div className="hidden md:flex items-center gap-1 ml-2">
                         <a href="/" className={link}>Home</a>
-                        <a href="/projects" className={link}>Projects</a>
-                        <a href="/projects/apps" className={link}>Apps</a>
-                        <a href="/projects/websites" className={link}>Websites</a>
-                        <a href="/projects/games" className={link}>Games</a>
                         <a href="#about" className={link}>About</a>
+
+                        {/* Quick Nav (desktop dropdown, nicer list) */}
+                        <div className="relative" ref={quickRef}>
+                            <button
+                                type="button"
+                                className={[link, "inline-flex items-center gap-1"].join(" ")}
+                                aria-haspopup="menu"
+                                aria-expanded={openQuick}
+                                onClick={() => setOpenQuick(v => !v)}
+                            >
+                                Quick Nav
+                                <svg viewBox="0 0 24 24" className={`h-4 w-4 transition ${openQuick ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.8">
+                                    <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+
+                            <AnimatePresence>
+                                {openQuick && (
+                                    <motion.div
+                                        key="quick-desktop"
+                                        role="menu"
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 4 }}
+                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                        className="absolute left-0 mt-2 w-72 rounded-xl border bg-white/90 dark:bg-zinc-950/90 backdrop-blur p-2 shadow-md"
+                                    >
+                                        <ul className="divide-y divide-zinc-200/70 dark:divide-zinc-800/80">
+                                            {quickItems.map((item) => (
+                                                <li key={item.href}>
+                                                    <a
+                                                        href={item.href}
+                                                        role="menuitem"
+                                                        onClick={() => setOpenQuick(false)}
+                                                        className="group flex items-center gap-3 p-3 rounded-lg hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-700"
+                                                    >
+                                                        <span className="flex h-9 w-9 items-center justify-center rounded-lg border dark:border-zinc-800">
+                                                            {item.icon}
+                                                        </span>
+                                                        <span className="flex-1">
+                                                            <span className="block text-sm font-semibold">{item.title}</span>
+                                                            <span className="block text-xs text-zinc-600 dark:text-zinc-400">{item.desc}</span>
+                                                        </span>
+                                                        <svg
+                                                            viewBox="0 0 24 24"
+                                                            className="h-4 w-4 opacity-60 group-hover:translate-x-0.5 transition"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="1.6"
+                                                        >
+                                                            <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
                         <a
                             href="#contact"
-                            className={[
-                                link,
-                                "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
-                            ].join(" ")}
+                            className={[link, "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"].join(" ")}
                         >
                             Contact
                         </a>
@@ -90,13 +192,12 @@ export default function Header() {
                             type="button"
                             className="md:hidden inline-flex items-center justify-center rounded-lg border px-2.5 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
                             aria-label="Open menu"
-                            aria-expanded={open}
+                            aria-expanded={openMobile}
                             aria-controls="mobile-menu"
-                            onClick={() => setOpen((v) => !v)}
+                            onClick={() => setOpenMobile(v => !v)}
                         >
-                            {/* Simple hamburger / close icon */}
                             <span className="sr-only">Menu</span>
-                            {!open ? (
+                            {!openMobile ? (
                                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
                                 </svg>
@@ -111,9 +212,9 @@ export default function Header() {
 
                 {/* Mobile menu (animated dropdown) */}
                 <AnimatePresence>
-                    {open && (
+                    {openMobile && (
                         <>
-                            {/* Backdrop for modern feel */}
+                            {/* Backdrop */}
                             <motion.div
                                 key="backdrop"
                                 className="fixed inset-0 bg-black/30 md:hidden"
@@ -121,7 +222,7 @@ export default function Header() {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.15 }}
-                                onClick={() => setOpen(false)}
+                                onClick={() => setOpenMobile(false)}
                             />
 
                             <motion.div
@@ -135,21 +236,68 @@ export default function Header() {
                                 transition={{ duration: 0.18, ease: "easeOut" }}
                             >
                                 <div className="rounded-xl border bg-white/90 dark:bg-zinc-950/90 backdrop-blur p-2 space-y-1 shadow-md">
-                                    <a href="/" className={link} onClick={() => setOpen(false)}>Home</a>
-                                    <a href="/projects" className={link} onClick={() => setOpen(false)}>Projects</a>
-                                    <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1" />
-                                    <a href="/projects/apps" className={link} onClick={() => setOpen(false)}>Apps</a>
-                                    <a href="/projects/websites" className={link} onClick={() => setOpen(false)}>Websites</a>
-                                    <a href="/projects/games" className={link} onClick={() => setOpen(false)}>Games</a>
-                                    <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1" />
-                                    <a href="#about" className={link} onClick={() => setOpen(false)}>About</a>
+                                    <a href="/" className={link} onClick={() => setOpenMobile(false)}>Home</a>
+                                    <a href="#about" className={link} onClick={() => setOpenMobile(false)}>About</a>
+
+                                    {/* Quick Nav (mobile accordion, nicer list) */}
+                                    <button
+                                        type="button"
+                                        className={[link, "w-full flex items-center justify-between"].join(" ")}
+                                        aria-expanded={openQuickMobile}
+                                        onClick={() => setOpenQuickMobile(v => !v)}
+                                    >
+                                        <span>Quick Nav</span>
+                                        <svg viewBox="0 0 24 24" className={`h-4 w-4 transition ${openQuickMobile ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.8">
+                                            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </button>
+
+                                    <AnimatePresence>
+                                        {openQuickMobile && (
+                                            <motion.div
+                                                key="quick-mobile"
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.18, ease: "easeOut" }}
+                                                className="pl-2"
+                                            >
+                                                <ul className="divide-y divide-zinc-200/70 dark:divide-zinc-800/80">
+                                                    {quickItems.map((item) => (
+                                                        <li key={item.href}>
+                                                            <a
+                                                                href={item.href}
+                                                                onClick={() => setOpenMobile(false)}
+                                                                className="group flex items-center gap-3 p-3 rounded-lg hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
+                                                            >
+                                                                <span className="flex h-9 w-9 items-center justify-center rounded-lg border dark:border-zinc-800">
+                                                                    {item.icon}
+                                                                </span>
+                                                                <span className="flex-1">
+                                                                    <span className="block text-sm font-semibold">{item.title}</span>
+                                                                    <span className="block text-xs text-zinc-600 dark:text-zinc-400">{item.desc}</span>
+                                                                </span>
+                                                                <svg
+                                                                    viewBox="0 0 24 24"
+                                                                    className="h-4 w-4 opacity-60 group-hover:translate-x-0.5 transition"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    strokeWidth="1.6"
+                                                                >
+                                                                    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+
                                     <a
                                         href="#contact"
-                                        className={[
-                                            link,
-                                            "w-full justify-center bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
-                                        ].join(" ")}
-                                        onClick={() => setOpen(false)}
+                                        className={[link, "w-full justify-center bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"].join(" ")}
+                                        onClick={() => setOpenMobile(false)}
                                     >
                                         Contact
                                     </a>
