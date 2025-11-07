@@ -1,5 +1,4 @@
 import Section from '../components/Section.jsx'
-import ProjectCard from '../components/ProjectCard.jsx'
 import { useEffect, useState } from 'react'
 
 export default function Game() {
@@ -9,27 +8,18 @@ export default function Game() {
     useEffect(() => {
         const fallback = [
             {
-                id: 'doomlike-tools',
-                title: 'Doomlike Tools (WebGL)',
-                summary: 'Level prototyper with grid brush, export to JSON, and navmesh preview.',
-                tags: ['WebGL', 'React', 'Three.js'],
-                href: 'https://github.com/Cbuzza90', // replace per-project later
-                thumb: '/thumbs/doomlike.png',        // add an image or use a placeholder
+                id: 'ACG',
+                title: 'Unity Game',
+                thumb: 'public/images/ACG/ACG-CoverPhoto.png',
             },
             {
-                id: 'rust-map-kit',
-                title: 'Rust Map Kit',
-                summary: 'Heightmap experiments + splat painting workflow for RustEdit.',
-                tags: ['Tools', 'Heightmaps', 'Node'],
-                href: 'https://github.com/Cbuzza90',
+                id: 'Enviroments',
+                title: 'Enviroment/Prefabs',
                 thumb: '/thumbs/rustmap.png',
             },
             {
                 id: 'tactics-proto',
-                title: 'Tactics Prototype',
-                summary: 'Grid movement, turn order, and ability system with data-driven JSON.',
-                tags: ['Prototype', 'React', 'Zustand'],
-                href: 'https://github.com/Cbuzza90',
+                title: '3rd placeholder',
                 thumb: '/thumbs/tactics.png',
             },
         ]
@@ -47,52 +37,39 @@ export default function Game() {
                 </p>
             </Section>
 
-            <Section title="Toolkit" className="pt-4">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {[
-                        'React + Vite',
-                        'Three.js / WebGL',
-                        'TypeScript (optional)',
-                        'Zustand / Jotai state',
-                        'Node tool-scripts',
-                        'PWA builds',
-                        'Canvas & shaders (GLSL)',
-                        'Design docs & flows',
-                    ].map(item => (
-                        <div key={item} className="rounded-xl border dark:border-zinc-800 p-4 bg-white dark:bg-zinc-950">
-                            <span className="text-sm">{item}</span>
-                        </div>
-                    ))}
-                </div>
-            </Section>
-
-            <Section id="game-projects" title="Projects" subtitle="Playable prototypes & tooling">
+            <Section id="game-projects" title="Projects" subtitle="Click a project to view details">
                 {loading ? (
                     <div className="text-sm text-zinc-500">Loading…</div>
                 ) : (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {projects.map(p => (
-                            <ProjectCard
+                            <a
                                 key={p.id}
-                                title={p.title}
-                                description={p.summary}
-                                href={p.href}
-                                tags={p.tags}
-                                image={p.thumb}
-                            />
+                                href={`/projects/${p.id}`}
+                                className="group block overflow-hidden rounded-2xl border dark:border-zinc-800 bg-white dark:bg-zinc-950"
+                                aria-label={p.title}
+                            >
+                                <div className="relative">
+                                    <img
+                                        src={p.thumb}
+                                        alt={p.title}
+                                        className="w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-[1.15]"
+
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-x-0 bottom-0 p-3">
+                                        <div className="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-xs
+                                    bg-zinc-900/80 text-white dark:bg-white/80 dark:text-zinc-900
+                                    backdrop-blur-sm">
+                                            <span>{p.title}</span>
+                                            <span aria-hidden>→</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         ))}
                     </div>
                 )}
-            </Section>
-
-            <Section title="Work-in-Progress" subtitle="Notes & design docs">
-                <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
-                    <ul className="list-disc pl-5 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
-                        <li>Input abstraction layer (KB / controller) with remapping UI</li>
-                        <li>Save/load JSON schema & versioning</li>
-                        <li>Export pipeline for sharing builds (Web + Desktop)</li>
-                    </ul>
-                </div>
             </Section>
         </>
     )

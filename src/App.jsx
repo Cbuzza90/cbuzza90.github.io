@@ -2,6 +2,9 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx';
 import Game from './pages/Game.jsx';
+import ACG from './pages/projects/ACG.jsx';
+import Environments from './pages/projects/Enviroments.jsx';
+
 
 
 function Footer() {
@@ -23,7 +26,10 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<Game />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/ACG" element={<ACG />} />
+          <Route path="/projects/Enviroments" element={<ACG />} />
           <Route path="/projects/:category" element={<Projects />} />
+
 
         </Routes>
       </main>
