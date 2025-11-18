@@ -158,10 +158,10 @@ export default function ACG() {
             {/* Media / GIF Gallery */}
             <Section id="acg-gallery" title="Gallery" subtitle="Click a tile to enlasrge">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <MediaTile title="Boss + Lightning Spell" src="/images/acg/AChampionsGauntlet.Gameplay.gif" onClick={setLightbox} />
-                    <MediaTile title="Boomerange Spell" src="/images/acg/ACG-Boomerangespell.gif" onClick={setLightbox} />
-                    <MediaTile title="Inventory Hotkey QuickBind" src="/images/acg/ABC-QuickBindSpellSheet.gif" onClick={setLightbox} />
-                    <MediaTile title="Inventory Flow" src="/images/acg/ACG-MeleeView.BatSpawnerPortals.gif" onClick={setLightbox} />
+                    <MediaTile title="Boss + Lightning Spell" src="/images/ACG/AChampionsGauntlet.Gameplay.gif" onClick={setLightbox} />
+                    <MediaTile title="Boomerange Spell" src="/images/ACG/ACG-Boomerangespell.gif" onClick={setLightbox} />
+                    <MediaTile title="Inventory Hotkey QuickBind" src="/images/ACG/ABC-QuickBindSpellSheet.gif" onClick={setLightbox} />
+                    <MediaTile title="Inventory Flow" src="/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif" onClick={setLightbox} />
                 </div>
             </Section>
 
