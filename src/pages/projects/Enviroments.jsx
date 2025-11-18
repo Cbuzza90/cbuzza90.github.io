@@ -49,15 +49,22 @@ function MediaTile({ title, src, type = 'image', onClick }) {
 
 const ALL_MEDIA = [
     // ---- RustEdit ----
-    { id: 're-1', tool: 'RustEdit', title: 'Harbor at Dusk', src: '/images/env/rustedit/harbor-dusk.jpg' },
-    { id: 're-2', tool: 'RustEdit', title: 'Satellite Valley', src: '/images/env/rustedit/satellite-valley.jpg' },
-    { id: 're-3', tool: 'RustEdit', title: 'Ridgeline Outpost', src: '/images/env/rustedit/ridgeline-outpost.jpg' },
+    { id: 're-1', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_FrontTrainView.png' },
+    { id: 're-2', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView1.png' },
+    { id: 're-3', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView2.png' },
+    { id: 're-4', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView3.png' },
+    { id: 're-5', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_OverView.png' },
+    { id: 're-6', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Internal1.png' },
+    { id: 're-7', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Overview.png' },
+    { id: 're-7', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Overview2.png' },
+    { id: 're-8', tool: 'RustEdit', title: '', src: 'images/Env/UnderWater_AboveWaterLocator.png' },
+    { id: 're-9', tool: 'RustEdit', title: '', src: 'images/Env/UnderWater_TopView.png' },
+    { id: 're-10', tool: 'RustEdit', title: '', src: 'images/Env/UnderwWater_FrontView.png' },
     // ---- Hammer (CS2) ----
-    { id: 'hm-1', tool: 'Hammer', title: 'Alley Lighting Pass', src: '/images/env/hammer/alley-lighting.jpg' },
-    { id: 'hm-2', tool: 'Hammer', title: 'Market Mid', src: '/images/env/hammer/market-mid.jpg' },
-    { id: 'hm-3', tool: 'Hammer', title: 'CT Spawn Blockout', src: '/images/env/hammer/ct-spawn-blockout.jpg' },
-    // You can mix in GIFs or short MP4 flythroughs too:
-    // { id: 'hm-4', tool: 'Hammer', title: 'Courtyard Flythrough', src: '/images/env/hammer/courtyard.mp4', type: 'video' },
+    { id: 'hm-1', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems1.jpg' },
+    { id: 'hm-2', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems2.jpg' },
+    { id: 'hm-3', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems3.jpg' },
+    { id: 'hm-4', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems4.jpg' },
 ]
 
 export default function Environments() {
