@@ -27,7 +27,7 @@ export default function App() {
           <Route path="/game" element={<Game />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/ACG" element={<ACG />} />
-          <Route path="/projects/Enviroments" element={<ACG />} />
+          <Route path="/projects/Enviroments" element={<Environments />} />
           <Route path="/projects/:category" element={<Projects />} />
 
 
