@@ -10,7 +10,7 @@ export default function Game() {
             {
                 id: 'ACG',
                 title: 'Unity Game',
-                thumb: 'public/images/ACG/ACG-CoverPhoto.png',
+                thumb: '/images/ACG/ACG-CoverPhoto.png',
             },
             {
                 id: 'Enviroments',
