@@ -72,7 +72,7 @@ export default function VetInventory() {
 
             {/* ⭐ Rotating GIF Preview Section */}
             <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
-                <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
+                <div className="relative w-full max-w-2xl mx-auto aspect-[9/16] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
                     {/* Previous frame (base) */}
                     <img
                         src={VET_GIFS[prevIndex].src}
