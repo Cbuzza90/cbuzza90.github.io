@@ -41,7 +41,7 @@ function SoldierBattlefield() {
                     radius,
                     speed: baseSpeed,
                     hiddenFor: 0,
-                    fireCooldown: Math.random() * 1.2,
+                    fireCooldown: 0.5 + Math.random() * 0.8,
                 })
 
                 // Blue soldiers (right → left)
@@ -53,7 +53,7 @@ function SoldierBattlefield() {
                     radius,
                     speed: -baseSpeed,
                     hiddenFor: 0,
-                    fireCooldown: Math.random() * 1.2,
+                    fireCooldown: 0.5 + Math.random() * 0.8,
                 })
             }
 
@@ -82,28 +82,27 @@ function SoldierBattlefield() {
 
         const spawnProjectileFromSoldier = (s) => {
             const radius = s.radius
-            const bulletSpeed = 180 + Math.random() * 40
+            const gunLength = radius * 1.8
+            const bulletSpeed = 220 + Math.random() * 40
 
             if (s.side === 'red') {
-                // Gun tip on the right
-                const gx = s.x + radius + radius * 1.8
-                const gy = s.y
+                // tip of the gun on the right
+                const x = s.x + radius + gunLength
+                const y = s.y
                 projectilesRef.current.push({
-                    x: gx,
-                    y: gy,
+                    x,
+                    y,
                     vx: bulletSpeed,
-                    vy: 0,
                     side: 'red',
                 })
             } else {
-                // Gun tip on the left
-                const gx = s.x - radius - radius * 1.8
-                const gy = s.y
+                // tip of the gun on the left
+                const x = s.x - radius - gunLength
+                const y = s.y
                 projectilesRef.current.push({
-                    x: gx,
-                    y: gy,
+                    x,
+                    y,
                     vx: -bulletSpeed,
-                    vy: 0,
                     side: 'blue',
                 })
             }
@@ -134,22 +133,43 @@ function SoldierBattlefield() {
                 const gy = y - gunThickness / 2
                 ctx.fillStyle = '#111827'
                 ctx.fillRect(gx, gy, gunLength, gunThickness)
+
+                // occasional muzzle flash to the right
+                if (Math.random() < 0.015) {
+                    ctx.beginPath()
+                    ctx.moveTo(gx + gunLength, y)
+                    ctx.lineTo(gx + gunLength + 10, y - 4)
+                    ctx.lineTo(gx + gunLength + 10, y + 4)
+                    ctx.closePath()
+                    ctx.fillStyle = 'rgba(248,250,252,0.8)'
+                    ctx.fill()
+                }
             } else {
                 const gx = x - radius - gunLength
                 const gy = y - gunThickness / 2
                 ctx.fillStyle = '#020617'
                 ctx.fillRect(gx, gy, gunLength, gunThickness)
+
+                // occasional muzzle flash to the left
+                if (Math.random() < 0.015) {
+                    ctx.beginPath()
+                    ctx.moveTo(gx, y)
+                    ctx.lineTo(gx - 10, y - 4)
+                    ctx.lineTo(gx - 10, y + 4)
+                    ctx.closePath()
+                    ctx.fillStyle = 'rgba(248,250,252,0.8)'
+                    ctx.fill()
+                }
             }
         }
 
         const drawProjectile = (p) => {
-            ctx.save()
             ctx.beginPath()
             ctx.arc(p.x, p.y, 3, 0, Math.PI * 2)
             ctx.fillStyle = p.side === 'red' ? '#fbbf24' : '#a5b4fc'
             ctx.fill()
 
-            // Tiny trailing line
+            // tiny trail
             ctx.beginPath()
             const trail = 8
             ctx.moveTo(p.x, p.y)
@@ -157,7 +177,6 @@ function SoldierBattlefield() {
             ctx.strokeStyle = 'rgba(248,250,252,0.8)'
             ctx.lineWidth = 1
             ctx.stroke()
-            ctx.restore()
         }
 
         const render = (time) => {
@@ -165,10 +184,7 @@ function SoldierBattlefield() {
             lastTime = time
 
             const { width, height } = canvas
-            const logicalWidth = width / (window.devicePixelRatio || 1)
-            const logicalHeight = height / (window.devicePixelRatio || 1)
-
-            // Clear whole canvas
+            // Clear whole canvas (ignore current transform)
             ctx.save()
             ctx.setTransform(1, 0, 0, 1, 0, 0)
             ctx.clearRect(0, 0, width, height)
@@ -177,30 +193,23 @@ function SoldierBattlefield() {
             // Subtle dark background wash
             ctx.fillStyle = '#020617'
             ctx.globalAlpha = 0.9
-            ctx.fillRect(0, 0, logicalWidth, logicalHeight)
+            ctx.fillRect(0, 0, width, height)
             ctx.globalAlpha = 1
 
             const soldiers = soldiersRef.current
+            const pixelRatio = window.devicePixelRatio || 1
+            const logicalWidth = width / pixelRatio
 
             // Update + draw soldiers
             for (const s of soldiers) {
                 // Movement
                 s.x += s.speed * dt
 
-                // Wrap around
+                // Wrap around screen
                 if (s.speed > 0 && s.x - s.radius > logicalWidth + 40) {
                     s.x = -40
                 } else if (s.speed < 0 && s.x + s.radius < -40) {
                     s.x = logicalWidth + 40
-                }
-
-                // Fire cooldown
-                s.fireCooldown -= dt
-                if (s.fireCooldown <= 0 && s.hiddenFor <= 0) {
-                    // Slight randomness so it's not perfectly synced
-                    const fireRate = 0.8 + Math.random() * 0.7
-                    s.fireCooldown = fireRate
-                    spawnProjectileFromSoldier(s)
                 }
 
                 // Handle hit hiding
@@ -209,21 +218,26 @@ function SoldierBattlefield() {
                     continue
                 }
 
+                // Firing logic
+                s.fireCooldown -= dt
+                if (s.fireCooldown <= 0) {
+                    spawnProjectileFromSoldier(s)
+                    s.fireCooldown = 0.7 + Math.random() * 0.7
+                }
+
                 drawSoldier(s)
             }
 
             // Update + draw projectiles
-            const projectiles = projectilesRef.current
-            projectilesRef.current = projectiles.filter((p) => {
+            projectilesRef.current = projectilesRef.current.filter((p) => {
                 p.x += p.vx * dt
-                p.y += p.vy * dt
 
-                // If out of view, drop it
-                if (p.x < -20 || p.x > logicalWidth + 20) {
+                // remove if off-screen
+                if (p.x < -40 || p.x > logicalWidth + 40) {
                     return false
                 }
 
-                // Check collision with enemy soldiers
+                // check collision with enemy soldiers
                 const enemySide = p.side === 'red' ? 'blue' : 'red'
                 for (const s of soldiers) {
                     if (s.side !== enemySide) continue
@@ -245,7 +259,7 @@ function SoldierBattlefield() {
                 return true
             })
 
-            // Update + draw shot ring(s) for user clicks
+            // Update + draw shot ring(s)
             shotsRef.current = shotsRef.current.filter((shot) => {
                 shot.life += dt
                 if (shot.life > maxShotLife) return false
@@ -337,7 +351,7 @@ function SoldierBattlefield() {
         // Add shot effect
         shotsRef.current.push({ x, y, life: 0 })
 
-        // Check for manual hits
+        // Check for hits
         const soldiers = soldiersRef.current
         for (const s of soldiers) {
             if (s.hiddenFor > 0) continue
@@ -379,4 +393,40 @@ function SoldierBattlefield() {
     )
 }
 
-export default SoldierBattlefield
+export default function AnimatedTopBanner() {
+    return (
+        <section className="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 dark:border-zinc-800">
+            <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
+                {/* 
+                  ⬇️ Keep / paste your existing text content here.
+                  Headline, subheading, pills, buttons, whatever you already had.
+                */}
+                <div className="space-y-3">
+                    {/* Example structure — replace with your actual existing content */}
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
+                        Designer • Developer • Game Tinkerer
+                    </p>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
+                        Building playful, tactical web experiences.
+                    </h1>
+                    <p className="text-sm md:text-base text-zinc-400">
+                        From inventory tools for vet hospitals to post-apocalyptic
+                        strategy games — I like mixing clean UI with systems that
+                        feel alive.
+                    </p>
+                    {/* Drop your CTA buttons back in here if you had them */}
+                </div>
+
+                {/* New interactive background battlefield */}
+                <div className="relative h-48 md:h-56 lg:h-64">
+                    <div className="absolute inset-0 rounded-2xl border border-zinc-800/60 bg-gradient-to-b from-slate-900 via-slate-950 to-black shadow-[0_18px_45px_rgba(0,0,0,0.75)]">
+                        <SoldierBattlefield />
+                    </div>
+                </div>
+            </div>
+
+            {/* Soft vignette / glow, no lightning or flash anymore */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.09),transparent_65%)]" />
+        </section>
+    )
+}
