@@ -82,9 +82,9 @@ export default function Game() {
                 thumb: null, // replaced by slideshow
             },
             {
-                id: 'tactics-proto',
+                id: 'Sector88',
                 title: '3rd placeholder',
-                thumb: '/images/Sector88/Sector88_CoverPhoto.png',
+                thumb: 'Upcoming Finished Game',
             },
         ]
         setProjects(fallback)

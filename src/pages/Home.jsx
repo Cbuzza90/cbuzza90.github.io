@@ -58,7 +58,7 @@ export default function Home() {
 
                     {/* App Development */}
                     <DevTypeButton
-                        href="/app"
+                        href="/app/vetinventory"
                         title="App Development"
                         icon={
                             <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
@@ -72,7 +72,7 @@ export default function Home() {
 
                     {/* Web Development */}
                     <DevTypeButton
-                        href="/web"
+                        href="/web/thispage"
                         title="Web Development"
                         icon={
                             <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">

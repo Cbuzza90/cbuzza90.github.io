@@ -1,6 +1,7 @@
 import Section from '../../components/Section.jsx'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import Header from '../components/Header.jsx'
 
 function Pill({ children }) {
     return (
@@ -12,12 +13,14 @@ function Pill({ children }) {
 
 function MediaTile({ title, src, type = 'image', onClick }) {
     return (
+
         <button
             type="button"
             onClick={() => onClick({ title, src, type })}
             className="group block w-full text-left overflow-hidden rounded-2xl border dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-700"
             aria-label={`Open ${title}`}
         >
+            <Header />
             <div className="relative">
                 {type === 'video' ? (
                     <video

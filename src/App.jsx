@@ -1,11 +1,15 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import Projects from './pages/Projects.jsx';
-import Game from './pages/Game.jsx';
-import ACG from './pages/projects/ACG.jsx';
-import Environments from './pages/projects/Enviroments.jsx';
+
+// Game pages
+import Game from './pages/Game.jsx'
+import ACG from './pages/games/ACG.jsx'
+import Environments from './pages/games/Enviroments.jsx'
+import ThisPage from './pages/web/thispage.jsx'
 
 
+// App pages
+import VetInventory from './pages/app/vetinventory.jsx'
 
 function Footer() {
   return (
@@ -20,16 +24,21 @@ function Footer() {
 export default function App() {
   return (
     <div className="min-h-dvh flex flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      {/* <- removed <Nav /> here */}
       <main className="flex-1">
         <Routes>
+          {/* Home */}
           <Route path="/" element={<Home />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/ACG" element={<ACG />} />
-          <Route path="/projects/Enviroments" element={<Environments />} />
-          <Route path="/projects/:category" element={<Projects />} />
 
+          {/* Game Development */}
+          <Route path="/game" element={<Game />} />
+          <Route path="/game/acg" element={<ACG />} />
+          <Route path="/game/environments" element={<Environments />} />
+
+          {/* App Development */}
+          <Route path="/app/vetinventory" element={<VetInventory />} />
+
+          {/* Web Development */}
+          <Route path="/web/thispage" element={<ThisPage />} />
 
         </Routes>
       </main>
