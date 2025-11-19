@@ -67,7 +67,7 @@ export default function VetInventory() {
                 </div>
             </Section>
 
-            {/* ⭐ Rotating GIF Preview Section with iPhone frame */}
+            {/* ⭐ Rotating GIF Preview Section with iPhone frame + side cropping */}
             <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
                 <div className="relative w-full max-w-xs mx-auto">
 
@@ -94,15 +94,23 @@ export default function VetInventory() {
                             <img
                                 src={VET_GIFS[prevIndex].src}
                                 alt="Vet app preview"
-                                className="absolute inset-0 w-full h-full object-cover object-center"
+                                className="
+                        absolute inset-0 w-full h-full 
+                        object-cover object-center 
+                        scale-[1.12]   /* ⭐ zoom to crop sides */
+                    "
                             />
 
-                            {/* Fading-in frame */}
+                            {/* New frame fading in */}
                             <img
                                 key={VET_GIFS[index].src}
                                 src={VET_GIFS[index].src}
                                 alt="Vet app preview"
-                                className="absolute inset-0 w-full h-full object-cover object-center"
+                                className="
+                        absolute inset-0 w-full h-full 
+                        object-cover object-center 
+                        scale-[1.12]   /* ⭐ zoom to crop sides */
+                    "
                                 style={{ animation: 'crossfade 0.7s ease-in-out' }}
                             />
                         </div>
@@ -117,7 +125,7 @@ export default function VetInventory() {
                 opacity-70
             " />
 
-                        {/* --- bottom home bar (modern) --- */}
+                        {/* --- bottom home bar --- */}
                         <div className="
                 absolute bottom-3 left-1/2 -translate-x-1/2
                 w-24 h-1.5
@@ -128,6 +136,7 @@ export default function VetInventory() {
                     </div>
                 </div>
             </Section>
+
 
 
             <Section title="Problem & Goal">
