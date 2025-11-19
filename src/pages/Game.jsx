@@ -1,6 +1,7 @@
 import Section from '../components/Section.jsx'
 import Header from '../components/Header.jsx'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 /* ---------------------------------------------
    All rotating environment images
@@ -17,7 +18,6 @@ const ENV_IMAGES = [
     '/images/Env/UnderWater_AboveWaterLocator.png',
     '/images/Env/UnderWater_TopView.png',
     '/images/Env/UnderwWater_FrontView.png',
-
     // Hammer (CS2)
     '/images/Env/De_WaterSystems1.jpg',
     '/images/Env/De_WaterSystems2.jpg',
@@ -35,6 +35,23 @@ const ACG_GIFS = [
     '/images/ACG/ABC-QuickBindSpellSheet.gif',
     '/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif',
 ]
+
+/* ---------------------------------------------
+   Map project IDs -> router paths
+--------------------------------------------- */
+function getProjectPath(id) {
+    switch (id) {
+        case 'ACG':
+            return '/game/acg'
+        case 'Enviroments':
+            return '/game/environments'
+        case 'Sector88':
+            // placeholder until you make a page for it
+            return '/game'
+        default:
+            return '/game'
+    }
+}
 
 export default function Game() {
     const [projects, setProjects] = useState([])
@@ -84,7 +101,7 @@ export default function Game() {
             {
                 id: 'Sector88',
                 title: 'Upcoming Finished Game',
-                thumb: '/images/Sector88',
+                thumb: '/images/Sector88/Sector88_CoverPhoto.png',
             },
         ]
         setProjects(fallback)
@@ -117,9 +134,9 @@ export default function Game() {
                 ) : (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {projects.map(p => (
-                            <a
+                            <Link
                                 key={p.id}
-                                href={`/games/${p.id}`}
+                                to={getProjectPath(p.id)}
                                 className="group block overflow-hidden rounded-2xl border dark:border-zinc-800 bg-white dark:bg-zinc-950"
                                 aria-label={p.title}
                             >
@@ -182,7 +199,7 @@ export default function Game() {
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         ))}
                     </div>
                 )}
