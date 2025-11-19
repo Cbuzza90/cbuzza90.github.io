@@ -141,7 +141,7 @@ export default function Home() {
                 <div className="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
                     <div className="space-y-4 text-sm md:text-base text-zinc-700 dark:text-zinc-300">
                         <p>
-                            I&apos;m Chris, a self-taught developer and tech tinkerer who
+                            I&apos;m Chris, a Mohawk Computer Systems Technician - Software Support graduate and self-taught game developer in training and tech tinkerer who
                             likes taking messy ideas and turning them into something you
                             can actually click, tap, and play with.
                         </p>
@@ -150,7 +150,7 @@ export default function Home() {
                             inventory tool, experimenting with post-apocalyptic strategy
                             game ideas, and polishing this portfolio. I care a lot about
                             clean UI, systems that feel &quot;alive&quot;, and solving real
-                            problems with the tools I build.
+                            problems or creating creative systems.
                         </p>
                         <p>
                             If you like the idea of playful interfaces, tactical systems,
@@ -165,9 +165,9 @@ export default function Home() {
                                 Quick stats
                             </h3>
                             <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
-                                <li>• Based in Ontario, Canada 🇨🇦</li>
-                                <li>• Building: vet inventory tools & Sector 88</li>
-                                <li>• Tech: React, Vite, Node/Express, MySQL</li>
+                                <li>• Based in Canada 🇨🇦</li>
+                                <li>• Building: vet inventory tools & Sector 88: Clanker Protocol</li>
+                                <li>• Tech: React, Vite, Node/Express, MySQL, Unity, GoDot</li>
                                 <li>• Enjoys: systems design, pixel-y games, tinkering</li>
                             </ul>
                         </div>
@@ -177,9 +177,9 @@ export default function Home() {
                                 What I&apos;m looking for
                             </p>
                             <p className="text-zinc-600 dark:text-zinc-400">
-                                Freelance-style projects, small tools, or anything where
-                                I can mix UI, logic, and a bit of game-like thinking to
-                                make something feel smoother or more fun to use.
+                                Freelance-style projects, Indie companies, or startups!
+                                Somewhere I can mix UI, logic, creativity, and a bit
+                                of game-like thinking to make something feel smoother or more fun to use.
                             </p>
                         </div>
                     </div>
