@@ -1,9 +1,11 @@
 import Section from '../../components/Section.jsx'
 import { Link } from 'react-router-dom'
+import Header from '../../components/Header.jsx'
 
 export default function ThisPage() {
     return (
         <>
+            <Header />
             {/* Local animation keyframes */}
             <style>{`
                 @keyframes float-soft {

@@ -1,9 +1,11 @@
 import Section from '../../components/Section.jsx'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import Header from '../../components/Header.jsx'
 
 function Pill({ children }) {
     return (
+
         <span className="inline-flex items-center rounded-full border dark:border-zinc-800 px-3 py-1 text-xs bg-white dark:bg-zinc-950">
             {children}
         </span>
@@ -60,6 +62,7 @@ export default function ACG() {
 
     return (
         <>
+            <Header />
             {/* Breadcrumb */}
             <Section className="pt-8">
                 <Link

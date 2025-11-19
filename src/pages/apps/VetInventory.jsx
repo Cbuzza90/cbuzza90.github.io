@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Section from '../../components/Section.jsx'
 import { useEffect, useState } from 'react'
+import Header from '../../components/Header.jsx'
 
 function Pill({ children }) {
     return (
@@ -33,6 +34,7 @@ export default function VetInventory() {
 
     return (
         <>
+            <Header />
             {/* local fade animation */}
             <style>{`
                 @keyframes crossfade {
@@ -40,7 +42,6 @@ export default function VetInventory() {
                     to { opacity: 1; }
                 }
             `}</style>
-
             <Section className="pt-10 md:pt-16">
                 <div className="mb-4">
                     <Link
@@ -67,75 +68,111 @@ export default function VetInventory() {
                 </div>
             </Section>
 
-            {/* ⭐ Rotating GIF Preview Section with iPhone frame + side cropping */}
-            <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
+            {/* Rotating Preview Section with iPhone frame + side cropping */}
+            <Section title="Live Preview" subtitle="3 rotating previews showing app flow">
                 <div className="relative w-full max-w-xs mx-auto">
+                    {/* soft glow behind phone */}
+                    <div className="pointer-events-none absolute inset-0 -z-10">
+                        <div className="absolute inset-10 rounded-[3rem] bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.35),transparent_60%)] blur-2xl opacity-60" />
+                        <div className="absolute inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_bottom,_rgba(16,185,129,0.28),transparent_60%)] blur-3xl opacity-50" />
+                    </div>
 
                     {/* --- outer iPhone body --- */}
-                    <div className="
-            relative 
-            rounded-[2.2rem]
-            border-[6px]
-            border-zinc-800
-            dark:border-zinc-700
-            bg-black
-            shadow-[0_8px_30px_rgba(0,0,0,0.35)]
-        ">
+                    <div
+                        className="
+                relative 
+                rounded-[2.4rem]
+                border-[6px]
+                border-zinc-900/90
+                dark:border-zinc-700
+                bg-gradient-to-br from-zinc-900 via-black to-zinc-800
+                shadow-[0_18px_45px_rgba(0,0,0,0.7)]
+                pb-3 pt-3
+                px-3
+            "
+                    >
+                        {/* subtle edge highlight */}
+                        <div className="pointer-events-none absolute inset-[6px] rounded-[2rem] border border-white/5" />
 
                         {/* --- inner bezel (screen area mask) --- */}
-                        <div className="
-                overflow-hidden
-                rounded-[1.7rem]
-                bg-black
-                aspect-[9/16]
-                relative
-            ">
+                        <div
+                            className="
+                    overflow-hidden
+                    rounded-[1.9rem]
+                    bg-black
+                    aspect-[9/16]
+                    relative
+                    border border-black/60
+                "
+                        >
                             {/* Previous frame */}
-                            <img
+                            <video
+                                key={`prev-${VET_GIFS[prevIndex].src}`}
                                 src={VET_GIFS[prevIndex].src}
-                                alt="Vet app preview"
                                 className="
                         absolute inset-0 w-full h-full 
                         object-cover object-center 
-                        scale-[1.12]   /* ⭐ zoom to crop sides */
+                        scale-[1.02]
+                        translate-y-[4px]
                     "
+                                muted
+                                autoPlay
+                                loop
+                                playsInline
                             />
 
                             {/* New frame fading in */}
-                            <img
-                                key={VET_GIFS[index].src}
+                            <video
+                                key={`current-${VET_GIFS[index].src}`}
                                 src={VET_GIFS[index].src}
-                                alt="Vet app preview"
                                 className="
                         absolute inset-0 w-full h-full 
                         object-cover object-center 
-                        scale-[1.12]   /* ⭐ zoom to crop sides */
+                        scale-[1.02]
+                        translate-y-[4px]
                     "
+                                muted
+                                autoPlay
+                                loop
+                                playsInline
                                 style={{ animation: 'crossfade 0.7s ease-in-out' }}
                             />
+
+                            {/* subtle inner vignette */}
+                            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_rgba(0,0,0,0.7))]" />
                         </div>
 
-                        {/* --- top speaker cutout --- */}
-                        <div className="
-                absolute top-2 left-1/2 -translate-x-1/2
-                w-20 h-2.5
-                rounded-full
-                bg-zinc-900
-                dark:bg-zinc-600
-                opacity-70
-            " />
+                        {/* --- top notch area --- */}
+                        <div
+                            className="
+                    absolute top-3 left-1/2 -translate-x-1/2
+                    flex items-center justify-center
+                    h-6 w-32
+                    rounded-full
+                    bg-zinc-900
+                    dark:bg-zinc-800
+                    shadow-[0_0_0_1px_rgba(0,0,0,0.7)]
+                "
+                        >
+                            <div className="h-1.5 w-16 rounded-full bg-zinc-700/80" />
+                            <div className="ml-2 h-2.5 w-2.5 rounded-full bg-zinc-500/80" />
+                        </div>
 
                         {/* --- bottom home bar --- */}
-                        <div className="
-                absolute bottom-3 left-1/2 -translate-x-1/2
-                w-24 h-1.5
-                rounded-full
-                bg-zinc-400/40
-                dark:bg-zinc-500/40
-            " />
+                        <div
+                            className="
+                    absolute bottom-3 left-1/2 -translate-x-1/2
+                    w-24 h-1.5
+                    rounded-full
+                    bg-zinc-300/60
+                    dark:bg-zinc-500/60
+                "
+                        />
                     </div>
                 </div>
             </Section>
+
+
 
 
 

@@ -118,11 +118,6 @@ export default function Header() {
                         <Link to="/" className={link}>
                             Home
                         </Link>
-                        {/* anchors are fine as <a> */}
-                        <a href="#about" className={link}>
-                            About
-                        </a>
-
                         {/* Quick Nav (desktop dropdown) */}
                         <div className="relative" ref={quickRef}>
                             <button

@@ -1,6 +1,7 @@
 import Section from '../../components/Section.jsx'
 import { Link } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
+import Header from '../../components/Header.jsx'
 
 function Pill({ children }) {
     return (
@@ -87,6 +88,7 @@ export default function Environments() {
 
     return (
         <>
+            <Header />
             {/* Breadcrumb */}
             <Section className="pt-8">
                 <Link
