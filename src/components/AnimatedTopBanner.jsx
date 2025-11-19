@@ -399,7 +399,7 @@ export default function AnimatedTopBanner() {
             <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
 
                 <div className="space-y-3">
-                    <p className="text-[20px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
+                    <p className="text-4xl md:text-3xl lg:text-4xl font-bold text-zinc-50">
                         Chris Buzza
                     </p>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
