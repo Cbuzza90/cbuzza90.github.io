@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Section from '../../components/Section.jsx'
+import { useEffect, useState } from 'react'
 
 function Pill({ children }) {
     return (
@@ -9,9 +10,37 @@ function Pill({ children }) {
     )
 }
 
+// Your 3-looping GIFs
+const VET_GIFS = [
+    '/images/VetApp/VetApp-1.gif',
+    '/images/VetApp/VetApp-2.gif',
+    '/images/VetApp/VetApp-3.gif',
+]
+
 export default function VetInventory() {
+    // rotating GIF logic
+    const [index, setIndex] = useState(0)
+    const [prevIndex, setPrevIndex] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPrevIndex(index)
+            setIndex(i => (i + 1) % VET_GIFS.length)
+        }, 3000)
+
+        return () => clearInterval(interval)
+    }, [index])
+
     return (
         <>
+            {/* local fade animation */}
+            <style>{`
+                @keyframes crossfade {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+            `}</style>
+
             <Section className="pt-10 md:pt-16">
                 <div className="mb-4">
                     <Link
@@ -22,14 +51,12 @@ export default function VetInventory() {
                     </Link>
                 </div>
 
-                <h1 className="text-3xl md:text-5xl font-semibold">
-                    Vet Inventory System
-                </h1>
+                <h1 className="text-3xl md:text-5xl font-semibold">Vet Inventory System</h1>
 
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl">
                     A surgery-department inventory app built to replace a giant Excel
-                    sheet and tally marks with a fast, role-based web UI that works
-                    great on phones in the supply room.
+                    sheet and tally marks with a fast, role-based web UI that works great
+                    on phones in the supply room.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -38,6 +65,26 @@ export default function VetInventory() {
                     <Pill>MySQL</Pill>
                     <Pill>JWT Auth</Pill>
                     <Pill>PWA / Offline-first (planned)</Pill>
+                </div>
+            </Section>
+
+            {/* ⭐ Rotating GIF Preview Section */}
+            <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
+                <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
+                    {/* Previous frame */}
+                    <img
+                        src={VET_GIFS[prevIndex]}
+                        alt="Preview"
+                        className="absolute inset-0 w-full h-full object-contain"
+                    />
+                    {/* Fading-in frame */}
+                    <img
+                        key={VET_GIFS[index]}
+                        src={VET_GIFS[index]}
+                        alt="Preview"
+                        className="absolute inset-0 w-full h-full object-contain"
+                        style={{ animation: 'crossfade 0.7s ease-in-out' }}
+                    />
                 </div>
             </Section>
 
@@ -56,7 +103,7 @@ export default function VetInventory() {
                             clean overview for ordering.
                         </p>
                         <p>
-                            This is also a portfolio piece that shows full-stack work:
+                            This is also a portfolio piece showing full-stack work:
                             database schema, API design, auth, and a mobile-first UI.
                         </p>
                     </div>
@@ -73,7 +120,7 @@ export default function VetInventory() {
                             <li>React + Vite + Tailwind</li>
                             <li>Node / Express API</li>
                             <li>MySQL (local via XAMPP/MariaDB)</li>
-                            <li>JSON Web Tokens (JWT) for auth</li>
+                            <li>JWT-based auth</li>
                         </ul>
                     </aside>
                 </div>
@@ -85,35 +132,32 @@ export default function VetInventory() {
                         <h3 className="font-semibold text-lg">Procedure-first navigation</h3>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                             Items are grouped around real surgery workflows: TPLO, MPL,
-                            Tightrope CCL, and more. Staff can drill down from a
-                            procedure to all plates, screws, anchors, and kits they need.
+                            Tightrope CCL, and more. Staff can drill down into plates,
+                            screws, anchors, and kits.
                         </p>
                     </div>
 
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-lg">Fast search & filtering</h3>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                            A global search bar filters by procedure names, item names,
-                            and internal codes so techs don&apos;t need to scroll through
-                            a huge list while the clock is ticking.
+                            Global search filters procedures, items, and internal codes
+                            instantly — no scrolling.
                         </p>
                     </div>
 
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-lg">Role-based access</h3>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                            Standard users can safely adjust stock, while managers can
-                            create and edit items, tweak categories, and audit changes
-                            without locking everyone else out.
+                            Users adjust stock, managers edit items/categories and audit
+                            changes safely.
                         </p>
                     </div>
 
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-lg">Mobile-first UI</h3>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                            Designed for one-handed use: big tap targets, compact
-                            layouts, and quick &quot;+ / − / set&quot; stock controls for
-                            large restocks.
+                            Built for one-handed use with big tap targets and fast
+                            “+ / − / set” stock controls.
                         </p>
                     </div>
                 </div>
@@ -124,23 +168,25 @@ export default function VetInventory() {
                     <div className="rounded-2xl border dark:border-zinc-800 p-4 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-base">Login & roles</h3>
                         <p className="mt-2">
-                            Email/password login issues JWTs with role claims like
+                            JWT-based email/password login with role claims like
                             <span className="font-mono"> "User"</span> and
                             <span className="font-mono"> "Manager"</span>.
                         </p>
                     </div>
+
                     <div className="rounded-2xl border dark:border-zinc-800 p-4 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-base">Inventory browser</h3>
                         <p className="mt-2">
-                            Browse by procedure, then dive into categories and items
-                            with current stock, min thresholds, and notes.
+                            Browse by procedure → categories → items with current stock,
+                            thresholds, and notes.
                         </p>
                     </div>
+
                     <div className="rounded-2xl border dark:border-zinc-800 p-4 bg-white dark:bg-zinc-950">
                         <h3 className="font-semibold text-base">Stock adjustments</h3>
                         <p className="mt-2">
-                            Increment/decrement or jump directly to a specific quantity
-                            for big restocks after orders arrive.
+                            Increment/decrement or jump straight to a quantity for big
+                            reorder restocks.
                         </p>
                     </div>
                 </div>
@@ -148,10 +194,10 @@ export default function VetInventory() {
 
             <Section title="What’s next">
                 <ul className="list-disc list-inside text-sm text-zinc-600 dark:text-zinc-400 space-y-1">
-                    <li>Implement offline sync & conflict resolution.</li>
-                    <li>Add low-stock reports per category/procedure.</li>
-                    <li>Polish the manager dashboard view.</li>
-                    <li>Create a public demo mode with seeded sample data.</li>
+                    <li>Offline sync + conflict resolution</li>
+                    <li>Low-stock reporting</li>
+                    <li>Manager dashboard improvements</li>
+                    <li>Public demo mode w/ sample data</li>
                 </ul>
             </Section>
         </>

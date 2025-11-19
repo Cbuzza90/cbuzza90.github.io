@@ -78,7 +78,7 @@ export default function ThisPage() {
                         {/* Heading */}
                         <h1 className="text-2xl md:text-4xl font-semibold leading-snug">
                             <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-emerald-300 bg-clip-text text-transparent">
-                                This page is part of my
+                                This website itself is part of my
                             </span>
                         </h1>
 
