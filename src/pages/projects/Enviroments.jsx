@@ -32,10 +32,11 @@ function MediaTile({ title, src, type = 'image', onClick }) {
                     <img
                         src={src}
                         alt={title}
-                        className="w-full aspect-[1/1] object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        className="w-full h-full aspect-[16/9] object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                         loading="lazy"
                     />
                 )}
+
                 <div className="absolute inset-x-0 bottom-0 p-3">
                     <div className="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-xs bg-zinc-900/80 text-white dark:bg-white/80 dark:text-zinc-900 backdrop-blur-sm">
                         <span>{title}</span>
@@ -46,6 +47,7 @@ function MediaTile({ title, src, type = 'image', onClick }) {
         </button>
     )
 }
+
 
 const ALL_MEDIA = [
     // ---- RustEdit ----
