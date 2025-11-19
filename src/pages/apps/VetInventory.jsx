@@ -72,12 +72,7 @@ export default function VetInventory() {
 
             {/* ⭐ Rotating GIF Preview Section */}
             <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
-                {/*
-                    We let the GIF define the natural height, then crop ~10% off
-                    each side by zooming in with scale-[1.25] inside an
-                    overflow-hidden container.
-                */}
-                <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
+                <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
                     {/* Previous frame (base) */}
                     <img
                         src={VET_GIFS[prevIndex].src}
@@ -95,6 +90,7 @@ export default function VetInventory() {
                     />
                 </div>
             </Section>
+
 
             <Section title="Problem & Goal">
                 <div className="grid lg:grid-cols-3 gap-8">
