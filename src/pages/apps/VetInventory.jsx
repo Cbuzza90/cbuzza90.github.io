@@ -10,11 +10,12 @@ function Pill({ children }) {
     )
 }
 
-// Your 3-looping GIFs
+// Each GIF now has its *own* duration (ms)
 const VET_GIFS = [
-    '/images/VetApp/VetApp-1.gif',
-    '/images/VetApp/VetApp-2.gif',
-    '/images/VetApp/VetApp-3.gif',
+    { src: '/images/VetApp/VetApp-1.gif', duration: 4000 },
+    { src: '/images/VetApp/VetApp-2.gif', duration: 5000 },
+    { src: '/images/VetApp/VetApp-3.gif', duration: 4500 },
+    // tweak durations above however you like
 ]
 
 export default function VetInventory() {
@@ -23,12 +24,13 @@ export default function VetInventory() {
     const [prevIndex, setPrevIndex] = useState(0)
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        // when index changes, wait the duration for THIS gif, then go to next
+        const timeout = setTimeout(() => {
             setPrevIndex(index)
             setIndex(i => (i + 1) % VET_GIFS.length)
-        }, 3000)
+        }, VET_GIFS[index].duration)
 
-        return () => clearInterval(interval)
+        return () => clearTimeout(timeout)
     }, [index])
 
     return (
@@ -71,18 +73,22 @@ export default function VetInventory() {
             {/* ⭐ Rotating GIF Preview Section */}
             <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
                 <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
-                    {/* Previous frame */}
+                    {/* Previous frame (base) */}
                     <img
-                        src={VET_GIFS[prevIndex]}
-                        alt="Preview"
-                        className="absolute inset-0 w-full h-full object-contain"
+                        src={VET_GIFS[prevIndex].src}
+                        alt="Vet app preview"
+                        className={
+                            // 🔧 tweak cropping here: object-center / object-top / object-bottom etc
+                            'absolute inset-0 w-full h-full object-cover object-center'
+                        }
                     />
+
                     {/* Fading-in frame */}
                     <img
-                        key={VET_GIFS[index]}
-                        src={VET_GIFS[index]}
-                        alt="Preview"
-                        className="absolute inset-0 w-full h-full object-contain"
+                        key={VET_GIFS[index].src}
+                        src={VET_GIFS[index].src}
+                        alt="Vet app preview"
+                        className="absolute inset-0 w-full h-full object-cover object-center"
                         style={{ animation: 'crossfade 0.7s ease-in-out' }}
                     />
                 </div>
