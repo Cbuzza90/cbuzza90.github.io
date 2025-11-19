@@ -1,7 +1,6 @@
 import Section from '../../components/Section.jsx'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Header from '../components/Header.jsx'
 
 function Pill({ children }) {
     return (
@@ -13,14 +12,12 @@ function Pill({ children }) {
 
 function MediaTile({ title, src, type = 'image', onClick }) {
     return (
-
         <button
             type="button"
             onClick={() => onClick({ title, src, type })}
             className="group block w-full text-left overflow-hidden rounded-2xl border dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-700"
             aria-label={`Open ${title}`}
         >
-            <Header />
             <div className="relative">
                 {type === 'video' ? (
                     <video
@@ -40,8 +37,7 @@ function MediaTile({ title, src, type = 'image', onClick }) {
                     />
                 )}
                 <div className="absolute inset-x-0 bottom-0 p-3">
-                    <div className="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-xs
-            bg-zinc-900/80 text-white dark:bg-white/80 dark:text-zinc-900 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-xs bg-zinc-900/80 text-white dark:bg-white/80 dark:text-zinc-900 backdrop-blur-sm">
                         <span>{title}</span>
                         <span aria-hidden>⤢</span>
                     </div>
@@ -86,6 +82,7 @@ export default function ACG() {
                     <a
                         href="/images/acg/ACG-CoverPhoto.png"
                         target="_blank"
+                        rel="noreferrer"
                         className="rounded-lg px-4 py-2 text-sm bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
                     >
                         View Cover
@@ -159,12 +156,28 @@ export default function ACG() {
             </Section>
 
             {/* Media / GIF Gallery */}
-            <Section id="acg-gallery" title="Gallery" subtitle="Click a tile to enlasrge">
+            <Section id="acg-gallery" title="Gallery" subtitle="Click a tile to enlarge">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <MediaTile title="Boss + Lightning Spell" src="/images/ACG/AChampionsGauntlet.Gameplay.gif" onClick={setLightbox} />
-                    <MediaTile title="Boomerange Spell" src="/images/ACG/ACG-Boomerangespell.gif" onClick={setLightbox} />
-                    <MediaTile title="Inventory Hotkey QuickBind" src="/images/ACG/ABC-QuickBindSpellSheet.gif" onClick={setLightbox} />
-                    <MediaTile title="Inventory Flow" src="/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif" onClick={setLightbox} />
+                    <MediaTile
+                        title="Boss + Lightning Spell"
+                        src="/images/ACG/AChampionsGauntlet.Gameplay.gif"
+                        onClick={setLightbox}
+                    />
+                    <MediaTile
+                        title="Boomerange Spell"
+                        src="/images/ACG/ACG-Boomerangespell.gif"
+                        onClick={setLightbox}
+                    />
+                    <MediaTile
+                        title="Inventory Hotkey QuickBind"
+                        src="/images/ACG/ABC-QuickBindSpellSheet.gif"
+                        onClick={setLightbox}
+                    />
+                    <MediaTile
+                        title="Inventory Flow"
+                        src="/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif"
+                        onClick={setLightbox}
+                    />
                 </div>
             </Section>
 
