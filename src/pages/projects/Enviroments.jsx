@@ -49,22 +49,22 @@ function MediaTile({ title, src, type = 'image', onClick }) {
 
 const ALL_MEDIA = [
     // ---- RustEdit ----
-    { id: 're-1', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_FrontTrainView.png' },
-    { id: 're-2', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView1.png' },
-    { id: 're-3', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView2.png' },
-    { id: 're-4', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_InternalView3.png' },
-    { id: 're-5', tool: 'RustEdit', title: '', src: 'images/Env/MilitaryBunker_OverView.png' },
-    { id: 're-6', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Internal1.png' },
-    { id: 're-7', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Overview.png' },
-    { id: 're-7', tool: 'RustEdit', title: '', src: 'images/Env/OilrigLand_Overview2.png' },
-    { id: 're-8', tool: 'RustEdit', title: '', src: 'images/Env/UnderWater_AboveWaterLocator.png' },
-    { id: 're-9', tool: 'RustEdit', title: '', src: 'images/Env/UnderWater_TopView.png' },
-    { id: 're-10', tool: 'RustEdit', title: '', src: 'images/Env/UnderwWater_FrontView.png' },
+    { id: 're-1', tool: 'RustEdit', title: '', src: '/images/Env/MilitaryBunker_FrontTrainView.png' },
+    { id: 're-2', tool: 'RustEdit', title: '', src: '/images/Env/MilitaryBunker_InternalView1.png' },
+    { id: 're-3', tool: 'RustEdit', title: '', src: '/images/Env/MilitaryBunker_InternalView2.png' },
+    { id: 're-4', tool: 'RustEdit', title: '', src: '/images/Env/MilitaryBunker_InternalView3.png' },
+    { id: 're-5', tool: 'RustEdit', title: '', src: '/images/Env/MilitaryBunker_OverView.png' },
+    { id: 're-6', tool: 'RustEdit', title: '', src: '/images/Env/OilrigLand_Internal1.png' },
+    { id: 're-7', tool: 'RustEdit', title: '', src: '/images/Env/OilrigLand_Overview.png' },
+    { id: 're-7', tool: 'RustEdit', title: '', src: '/images/Env/OilrigLand_Overview2.png' },
+    { id: 're-8', tool: 'RustEdit', title: '', src: '/images/Env/UnderWater_AboveWaterLocator.png' },
+    { id: 're-9', tool: 'RustEdit', title: '', src: '/images/Env/UnderWater_TopView.png' },
+    { id: 're-10', tool: 'RustEdit', title: '', src: '/images/Env/UnderwWater_FrontView.png' },
     // ---- Hammer (CS2) ----
-    { id: 'hm-1', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems1.jpg' },
-    { id: 'hm-2', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems2.jpg' },
-    { id: 'hm-3', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems3.jpg' },
-    { id: 'hm-4', tool: 'Hammer', title: '', src: 'images/Env/De_WaterSystems4.jpg' },
+    { id: 'hm-1', tool: 'Hammer', title: '', src: '/images/Env/De_WaterSystems1.jpg' },
+    { id: 'hm-2', tool: 'Hammer', title: '', src: '/images/Env/De_WaterSystems2.jpg' },
+    { id: 'hm-3', tool: 'Hammer', title: '', src: '/images/Env/De_WaterSystems3.jpg' },
+    { id: 'hm-4', tool: 'Hammer', title: '', src: '/images/Env/De_WaterSystems4.jpg' },
 ]
 
 export default function Environments() {
@@ -104,7 +104,7 @@ export default function Environments() {
 
                 <div className="mt-5 flex flex-wrap gap-3 items-center">
                     <a
-                        href="/images/env/cover.jpg"
+                        href="//images/env/cover.jpg"
                         target="_blank"
                         className="rounded-lg px-4 py-2 text-sm bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
                     >
