@@ -404,15 +404,15 @@ export default function AnimatedTopBanner() {
                 <div className="space-y-3">
                     {/* Example structure — replace with your actual existing content */}
                     <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
-                        Designer • Developer • Game Tinkerer
+                        Designer • Learning Developer • Game Tinkerer
                     </p>
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
-                        Building playful, tactical web experiences.
+                        When creativity meets obsession, digital experiences get better.
                     </h1>
                     <p className="text-sm md:text-base text-zinc-400">
                         From inventory tools for vet hospitals to post-apocalyptic
-                        strategy games — I like mixing clean UI with systems that
-                        feel alive.
+                        strategy games — I build clean UI, lively systems,
+                        and tech that solves real problems.
                     </p>
                     {/* Drop your CTA buttons back in here if you had them */}
                 </div>

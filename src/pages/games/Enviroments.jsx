@@ -105,13 +105,7 @@ export default function Environments() {
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3 items-center">
-                    <a
-                        href="//images/env/cover.jpg"
-                        target="_blank"
-                        className="rounded-lg px-4 py-2 text-sm bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
-                    >
-                        View Cover
-                    </a>
+
                     <a
                         href="https://github.com/Cbuzza90"
                         target="_blank"

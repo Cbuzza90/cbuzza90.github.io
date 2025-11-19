@@ -79,14 +79,7 @@ export default function ACG() {
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
-                    <a
-                        href="/images/acg/ACG-CoverPhoto.png"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="rounded-lg px-4 py-2 text-sm bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
-                    >
-                        View Cover
-                    </a>
+
                     <a
                         href="https://github.com/Cbuzza90"
                         target="_blank"
@@ -174,7 +167,7 @@ export default function ACG() {
                         onClick={setLightbox}
                     />
                     <MediaTile
-                        title="Inventory Flow"
+                        title="Portal Spawns + Melee Attacks"
                         src="/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif"
                         onClick={setLightbox}
                     />

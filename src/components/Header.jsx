@@ -1,6 +1,7 @@
 // src/components/Header.jsx
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom"; // ⬅️ add this
 
 function ThemeToggle() {
     function toggle() {
@@ -20,9 +21,10 @@ function ThemeToggle() {
     );
 }
 
+// ⬇️ match these to your real routes
 const quickItems = [
     {
-        href: "/app",
+        href: "/app/vetinventory",
         title: "App Development",
         desc: "Cross-platform apps & PWAs with offline support.",
         icon: (
@@ -33,7 +35,7 @@ const quickItems = [
         ),
     },
     {
-        href: "/web",
+        href: "/web/thispage",
         title: "Web Development",
         desc: "React (Vite) frontends + Express APIs.",
         icon: (
@@ -59,15 +61,14 @@ const quickItems = [
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [openMobile, setOpenMobile] = useState(false);
-    const [openQuick, setOpenQuick] = useState(false);            // desktop Quick Nav
-    const [openQuickMobile, setOpenQuickMobile] = useState(false); // mobile Quick Nav
+    const [openQuick, setOpenQuick] = useState(false);
+    const [openQuickMobile, setOpenQuickMobile] = useState(false);
     const menuRef = useRef(null);
     const quickRef = useRef(null);
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 10));
 
-    // Close on ESC or click outside
     useEffect(() => {
         function onKey(e) {
             if (e.key === "Escape") {
@@ -108,24 +109,37 @@ export default function Header() {
                 {/* Top bar */}
                 <div className="flex items-center h-12 md:h-14 gap-2">
                     {/* Brand */}
-                    <a href="/" className="font-semibold px-2">Chris Buzza</a>
+                    <Link to="/" className="font-semibold px-2">
+                        Chris Buzza
+                    </Link>
 
                     {/* Desktop nav */}
                     <div className="hidden md:flex items-center gap-1 ml-2">
-                        <a href="/" className={link}>Home</a>
-                        <a href="#about" className={link}>About</a>
+                        <Link to="/" className={link}>
+                            Home
+                        </Link>
+                        {/* anchors are fine as <a> */}
+                        <a href="#about" className={link}>
+                            About
+                        </a>
 
-                        {/* Quick Nav (desktop dropdown, nicer list) */}
+                        {/* Quick Nav (desktop dropdown) */}
                         <div className="relative" ref={quickRef}>
                             <button
                                 type="button"
                                 className={[link, "inline-flex items-center gap-1"].join(" ")}
                                 aria-haspopup="menu"
                                 aria-expanded={openQuick}
-                                onClick={() => setOpenQuick(v => !v)}
+                                onClick={() => setOpenQuick((v) => !v)}
                             >
                                 Quick Nav
-                                <svg viewBox="0 0 24 24" className={`h-4 w-4 transition ${openQuick ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.8">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    className={`h-4 w-4 transition ${openQuick ? "rotate-180" : ""}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                >
                                     <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
@@ -144,8 +158,8 @@ export default function Header() {
                                         <ul className="divide-y divide-zinc-200/70 dark:divide-zinc-800/80">
                                             {quickItems.map((item) => (
                                                 <li key={item.href}>
-                                                    <a
-                                                        href={item.href}
+                                                    <Link
+                                                        to={item.href}
                                                         role="menuitem"
                                                         onClick={() => setOpenQuick(false)}
                                                         className="group flex items-center gap-3 p-3 rounded-lg hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-700"
@@ -155,7 +169,9 @@ export default function Header() {
                                                         </span>
                                                         <span className="flex-1">
                                                             <span className="block text-sm font-semibold">{item.title}</span>
-                                                            <span className="block text-xs text-zinc-600 dark:text-zinc-400">{item.desc}</span>
+                                                            <span className="block text-xs text-zinc-600 dark:text-zinc-400">
+                                                                {item.desc}
+                                                            </span>
                                                         </span>
                                                         <svg
                                                             viewBox="0 0 24 24"
@@ -166,7 +182,7 @@ export default function Header() {
                                                         >
                                                             <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>
@@ -177,7 +193,10 @@ export default function Header() {
 
                         <a
                             href="#contact"
-                            className={[link, "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"].join(" ")}
+                            className={[
+                                link,
+                                "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900",
+                            ].join(" ")}
                         >
                             Contact
                         </a>
@@ -194,7 +213,7 @@ export default function Header() {
                             aria-label="Open menu"
                             aria-expanded={openMobile}
                             aria-controls="mobile-menu"
-                            onClick={() => setOpenMobile(v => !v)}
+                            onClick={() => setOpenMobile((v) => !v)}
                         >
                             <span className="sr-only">Menu</span>
                             {!openMobile ? (
@@ -210,11 +229,10 @@ export default function Header() {
                     </div>
                 </div>
 
-                {/* Mobile menu (animated dropdown) */}
+                {/* Mobile menu */}
                 <AnimatePresence>
                     {openMobile && (
                         <>
-                            {/* Backdrop */}
                             <motion.div
                                 key="backdrop"
                                 className="fixed inset-0 bg-black/30 md:hidden"
@@ -236,18 +254,36 @@ export default function Header() {
                                 transition={{ duration: 0.18, ease: "easeOut" }}
                             >
                                 <div className="rounded-xl border bg-white/90 dark:bg-zinc-950/90 backdrop-blur p-2 space-y-1 shadow-md">
-                                    <a href="/" className={link} onClick={() => setOpenMobile(false)}>Home</a>
-                                    <a href="#about" className={link} onClick={() => setOpenMobile(false)}>About</a>
+                                    <Link
+                                        to="/"
+                                        className={link}
+                                        onClick={() => setOpenMobile(false)}
+                                    >
+                                        Home
+                                    </Link>
+                                    <a
+                                        href="#about"
+                                        className={link}
+                                        onClick={() => setOpenMobile(false)}
+                                    >
+                                        About
+                                    </a>
 
-                                    {/* Quick Nav (mobile accordion, nicer list) */}
+                                    {/* Quick Nav mobile */}
                                     <button
                                         type="button"
                                         className={[link, "w-full flex items-center justify-between"].join(" ")}
                                         aria-expanded={openQuickMobile}
-                                        onClick={() => setOpenQuickMobile(v => !v)}
+                                        onClick={() => setOpenQuickMobile((v) => !v)}
                                     >
                                         <span>Quick Nav</span>
-                                        <svg viewBox="0 0 24 24" className={`h-4 w-4 transition ${openQuickMobile ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.8">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className={`h-4 w-4 transition ${openQuickMobile ? "rotate-180" : ""}`}
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                        >
                                             <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                     </button>
@@ -265,8 +301,8 @@ export default function Header() {
                                                 <ul className="divide-y divide-zinc-200/70 dark:divide-zinc-800/80">
                                                     {quickItems.map((item) => (
                                                         <li key={item.href}>
-                                                            <a
-                                                                href={item.href}
+                                                            <Link
+                                                                to={item.href}
                                                                 onClick={() => setOpenMobile(false)}
                                                                 className="group flex items-center gap-3 p-3 rounded-lg hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
                                                             >
@@ -274,8 +310,12 @@ export default function Header() {
                                                                     {item.icon}
                                                                 </span>
                                                                 <span className="flex-1">
-                                                                    <span className="block text-sm font-semibold">{item.title}</span>
-                                                                    <span className="block text-xs text-zinc-600 dark:text-zinc-400">{item.desc}</span>
+                                                                    <span className="block text-sm font-semibold">
+                                                                        {item.title}
+                                                                    </span>
+                                                                    <span className="block text-xs text-zinc-600 dark:text-zinc-400">
+                                                                        {item.desc}
+                                                                    </span>
                                                                 </span>
                                                                 <svg
                                                                     viewBox="0 0 24 24"
@@ -286,7 +326,7 @@ export default function Header() {
                                                                 >
                                                                     <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                                                                 </svg>
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -296,7 +336,10 @@ export default function Header() {
 
                                     <a
                                         href="#contact"
-                                        className={[link, "w-full justify-center bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"].join(" ")}
+                                        className={[
+                                            link,
+                                            "w-full justify-center bg-zinc-900 text-white dark:bg-white dark:text-zinc-900",
+                                        ].join(" ")}
                                         onClick={() => setOpenMobile(false)}
                                     >
                                         Contact
