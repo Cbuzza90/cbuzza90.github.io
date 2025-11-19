@@ -5,7 +5,6 @@ import Home from './pages/Home.jsx'
 import Game from './pages/Game.jsx'
 import ACG from './pages/games/ACG.jsx'
 import Environments from './pages/games/Enviroments.jsx'
-import ThisPage from './pages/web/ThisPage.jsx'
 
 
 // App pages
@@ -38,7 +37,6 @@ export default function App() {
           <Route path="/app/vetinventory" element={<VetInventory />} />
 
           {/* Web Development */}
-          <Route path="/web/thispage" element={<ThisPage />} />
 
         </Routes>
       </main>
