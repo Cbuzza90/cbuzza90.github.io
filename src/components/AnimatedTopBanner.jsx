@@ -1,332 +1,346 @@
-// src/components/AnimatedTopBanner.jsx
-import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from 'react'
 
-/* ---------------- Config ---------------- */
-const HEADLINES = ["Chris Buzza", "What I Like To Create:"];
-const WORDS = [
-    "Webpages",
-    "Functional Apps",
-    "Mobile Games",
-    "PC Games",
-    "Unity Games",
-    "In-Game Tools",
-    "Environments",
-    "Scripting",
-];
-
-// Approx timings (ms)
-function computeCycleMs(tokenCount) {
-    const headlineMs = 1600;
-    const delayChildrenMs = 1400;
-    const staggerMs = 280 * Math.max(0, tokenCount - 1);
-    const settleMs = 600;
-    return headlineMs + delayChildrenMs + staggerMs + settleMs + 400;
-}
-
-/* -------------- Small UI bits -------------- */
-function WordBadge({ text }) {
-    return (
-        <span
-            className={[
-                "px-3 py-1.5 md:px-4 md:py-2",
-                "rounded-xl border",
-                "bg-white/70 dark:bg-zinc-950/70",
-                "border-zinc-200/70 dark:border-zinc-800",
-                "backdrop-blur",
-                "shadow-sm",
-            ].join(" ")}
-        >
-            {text}
-        </span>
-    );
-}
-
-function HeadlineCycle({ lines }) {
-    return (
-        <div className="text-center">
-            <AnimatePresence initial={true} mode="wait">
-                <motion.h1
-                    key="line-1"
-                    className="text-2xl md:text-4xl lg:text-5xl font-bold"
-                    initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    {lines[0]}
-                </motion.h1>
-
-                <motion.div
-                    key="spacer"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.9, duration: 0.01 }}
-                />
-
-                <motion.h2
-                    key="line-2"
-                    className="mt-3 md:mt-4 text-xl md:text-3xl lg:text-4xl font-semibold text-zinc-700 dark:text-zinc-300"
-                    initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ delay: 1.0, duration: 0.7, ease: "easeOut" }}
-                >
-                    {lines[1]}
-                </motion.h2>
-            </AnimatePresence>
-        </div>
-    );
-}
-
-/* -------------- Lightning generator -------------- */
-/**
- * Creates a vertical, jagged lightning path from top->bottom with optional branches.
- * Coordinates are normalized in a 100x100 viewBox so it scales with the banner.
- */
-function generateBolt(seed) {
-    // Simple seeded RNG (deterministic for a given seed)
-    const rand = (() => {
-        let s = Math.floor(seed * 1e7) || 1;
-        return () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    })();
-
-    // Main path control points
-    const points = [];
-    const steps = 8 + Math.floor(rand() * 4); // 8..11 segments
-    const centerX = 50 + (rand() - 0.5) * 6; // slight center variance
-    let x = centerX;
-
-    for (let j = 0; j <= steps; j++) {
-        const y = (j / steps) * 100;
-        // Jitter x; more variance as we go down
-        const jitter = (2 + j * 0.8) * (rand() - 0.5) * 2; // grows with depth
-        x = Math.max(10, Math.min(90, x + jitter));
-        points.push({ x, y });
-    }
-
-    // Build SVG path for main bolt
-    const mainPath = `M ${points[0].x},0 ` + points.slice(1).map(p => `L ${p.x},${p.y}`).join(" ");
-
-    // Create a few branches that shoot off from some mid points
-    const branches = [];
-    const branchCount = 1 + Math.floor(rand() * 3); // 1..3 branches
-    for (let b = 0; b < branchCount; b++) {
-        const idx = 2 + Math.floor(rand() * (steps - 3)); // avoid top/bottom
-        const start = points[idx];
-        // branch goes diagonally outward and down a bit, then tapers
-        const direction = rand() > 0.5 ? 1 : -1;
-        const length = 8 + rand() * 18; // 8..26 "percent" of viewBox height
-        const bend = (rand() - 0.5) * 8;
-        const bx1 = Math.max(5, Math.min(95, start.x + direction * (6 + rand() * 10)));
-        const by1 = Math.min(100, start.y + length * 0.5);
-        const bx2 = Math.max(5, Math.min(95, bx1 + direction * (4 + rand() * 8) + bend));
-        const by2 = Math.min(100, start.y + length);
-        branches.push(`M ${start.x},${start.y} L ${bx1},${by1} L ${bx2},${by2}`);
-    }
-
-    return { mainPath, branches };
-}
-
-/* -------------- Animated vertical bolt -------------- */
-function VerticalBolt({ seed }) {
-    const { mainPath, branches } = useMemo(() => generateBolt(seed), [seed]);
-
-    // Stroke animation: draw-in quickly (pathLength 0 -> 1), then fade
-    const drawAnim = {
-        initial: { pathLength: 0, opacity: 0.9, filter: "drop-shadow(0 0 10px rgba(180,200,255,0.8))" },
-        animate: { pathLength: 1, opacity: [0.9, 1, 0.0] },
-        transition: { duration: 0.22, ease: "easeOut" },
-    };
-
-    const glowAnim = {
-        initial: { pathLength: 0, opacity: 0.5, filter: "blur(2px)" },
-        animate: { pathLength: 1, opacity: [0.5, 0.8, 0.0] },
-        transition: { duration: 0.22, ease: "easeOut" },
-    };
-
-    return (
-        <div className="pointer-events-none absolute inset-0">
-            <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-            >
-                {/* Core bolt */}
-                <motion.path
-                    d={mainPath}
-                    fill="none"
-                    stroke="rgb(140,170,255)"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    {...drawAnim}
-                />
-                {/* Glow around bolt */}
-                <motion.path
-                    d={mainPath}
-                    fill="none"
-                    stroke="rgba(140,170,255,0.55)"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    {...glowAnim}
-                />
-
-                {/* Branches (thinner, fade faster) */}
-                {branches.map((bp, k) => (
-                    <motion.path
-                        key={k}
-                        d={bp}
-                        fill="none"
-                        stroke="rgb(160,185,255)"
-                        strokeWidth="1.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        initial={{ pathLength: 0, opacity: 0.8 }}
-                        animate={{ pathLength: 1, opacity: [0.8, 0.4, 0] }}
-                        transition={{ duration: 0.18 + k * 0.02, ease: "easeOut" }}
-                    />
-                ))}
-            </svg>
-        </div>
-    );
-}
-
-/* -------------- Main Banner -------------- */
-export default function AnimatedTopBanner() {
-    const tokens = useMemo(
-        () => WORDS.map((w, idx) => ({ type: "word", value: w, key: `w-${idx}` })),
-        []
-    );
-
-    const container = {
-        hidden: {},
-        show: {
-            transition: {
-                staggerChildren: 0.28,
-                delayChildren: 1.4,
-            },
-        },
-    };
-
-    const itemWord = {
-        hidden: { opacity: 0, y: 10, scale: 0.95, filter: "blur(4px)" },
-        show: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-            transition: { type: "spring", stiffness: 300, damping: 20 },
-        },
-    };
-
-    // Cycle & lightning timing
-    const [cycleKey, setCycleKey] = useState(0);
-    const [boltSeed, setBoltSeed] = useState(Math.random());
-    const [showFlash, setShowFlash] = useState(false);
-    const [boltFiredKey, setBoltFiredKey] = useState(0);
-
-    const timers = useRef([]);
+function SoldierBattlefield() {
+    const canvasRef = useRef(null)
+    const containerRef = useRef(null)
+    const soldiersRef = useRef([])
+    const shotsRef = useRef([])
+    const poofsRef = useRef([])
 
     useEffect(() => {
-        timers.current.forEach(clearTimeout);
-        timers.current = [];
+        const canvas = canvasRef.current
+        const container = containerRef.current
+        if (!canvas || !container) return
 
-        const totalMs = computeCycleMs(tokens.length);
+        const ctx = canvas.getContext('2d')
+        let animationFrameId
+        let lastTime = performance.now()
 
-        // Pick a moment during the word sequence for the strike
-        const boltAtMs = Math.max(1600, Math.min(totalMs - 700, 1600 + Math.random() * (totalMs - 2100)));
+        const createSoldiers = () => {
+            const soldiers = []
+            const { width, height } = canvas
+            const perSide = 7
+            const marginY = 24
+            const usableHeight = Math.max(40, height - marginY * 2)
 
-        // Strike + flash IN SYNC (same timeout)
-        const tBolt = setTimeout(() => {
-            setBoltSeed(Math.random());
-            setBoltFiredKey((k) => k + 1);
-            setShowFlash(true);
-            setTimeout(() => setShowFlash(false), 140); // ~140ms flash
-        }, boltAtMs);
-        timers.current.push(tBolt);
+            for (let i = 0; i < perSide; i++) {
+                const y =
+                    marginY +
+                    (usableHeight / (perSide - 1 || 1)) * i
 
-        // Restart cycle 5s after completion
-        const tCycle = setTimeout(() => {
-            const tDelay = setTimeout(() => setCycleKey((k) => k + 1), 5000);
-            timers.current.push(tDelay);
-        }, totalMs);
-        timers.current.push(tCycle);
+                const baseSpeed = 40 + Math.random() * 40
+                const radius = 10
+
+                // Red soldiers (left → right)
+                soldiers.push({
+                    id: `r-${i}`,
+                    side: 'red',
+                    x: -Math.random() * width,
+                    y,
+                    radius,
+                    speed: baseSpeed,
+                    hiddenFor: 0,
+                })
+
+                // Blue soldiers (right → left)
+                soldiers.push({
+                    id: `b-${i}`,
+                    side: 'blue',
+                    x: width + Math.random() * width,
+                    y,
+                    radius,
+                    speed: -baseSpeed,
+                    hiddenFor: 0,
+                })
+            }
+
+            return soldiers
+        }
+
+        const resize = () => {
+            const rect = container.getBoundingClientRect()
+            const pixelRatio = window.devicePixelRatio || 1
+
+            canvas.width = rect.width * pixelRatio
+            canvas.height = rect.height * pixelRatio
+
+            // Draw in CSS pixels, not device pixels
+            ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+
+            soldiersRef.current = createSoldiers()
+        }
+
+        resize()
+        window.addEventListener('resize', resize)
+
+        const maxShotLife = 0.25
+        const maxPoofLife = 0.35
+
+        const drawSoldier = (s) => {
+            const { x, y, radius, side } = s
+
+            // Body
+            ctx.beginPath()
+            ctx.arc(x, y, radius, 0, Math.PI * 2)
+            ctx.fillStyle = side === 'red' ? '#ef4444' : '#3b82f6'
+            ctx.fill()
+
+            // Helmet-ish outline
+            ctx.beginPath()
+            ctx.arc(x, y - radius * 0.4, radius * 0.7, 0, Math.PI * 2)
+            ctx.strokeStyle = '#0b1120'
+            ctx.lineWidth = 1.5
+            ctx.stroke()
+
+            // Gun
+            const gunLength = radius * 1.8
+            const gunThickness = radius * 0.5
+
+            if (side === 'red') {
+                const gx = x + radius
+                const gy = y - gunThickness / 2
+                ctx.fillStyle = '#111827'
+                ctx.fillRect(gx, gy, gunLength, gunThickness)
+
+                // occasional muzzle flash to the right
+                if (Math.random() < 0.015) {
+                    ctx.beginPath()
+                    ctx.moveTo(gx + gunLength, y)
+                    ctx.lineTo(gx + gunLength + 10, y - 4)
+                    ctx.lineTo(gx + gunLength + 10, y + 4)
+                    ctx.closePath()
+                    ctx.fillStyle = 'rgba(248,250,252,0.8)'
+                    ctx.fill()
+                }
+            } else {
+                const gx = x - radius - gunLength
+                const gy = y - gunThickness / 2
+                ctx.fillStyle = '#020617'
+                ctx.fillRect(gx, gy, gunLength, gunThickness)
+
+                // occasional muzzle flash to the left
+                if (Math.random() < 0.015) {
+                    ctx.beginPath()
+                    ctx.moveTo(gx, y)
+                    ctx.lineTo(gx - 10, y - 4)
+                    ctx.lineTo(gx - 10, y + 4)
+                    ctx.closePath()
+                    ctx.fillStyle = 'rgba(248,250,252,0.8)'
+                    ctx.fill()
+                }
+            }
+        }
+
+        const render = (time) => {
+            const dt = Math.min((time - lastTime) / 1000, 0.05)
+            lastTime = time
+
+            const { width, height } = canvas
+            // Clear whole canvas (ignore current transform)
+            ctx.save()
+            ctx.setTransform(1, 0, 0, 1, 0, 0)
+            ctx.clearRect(0, 0, width, height)
+            ctx.restore()
+
+            // Subtle dark background wash
+            ctx.fillStyle = '#020617'
+            ctx.globalAlpha = 0.9
+            ctx.fillRect(0, 0, width, height)
+            ctx.globalAlpha = 1
+
+            const soldiers = soldiersRef.current
+
+            // Update + draw soldiers
+            for (const s of soldiers) {
+                // Movement
+                s.x += s.speed * dt
+
+                const logicalWidth = width / (window.devicePixelRatio || 1)
+
+                // Wrap around screen
+                if (s.speed > 0 && s.x - s.radius > logicalWidth + 40) {
+                    s.x = -40
+                } else if (s.speed < 0 && s.x + s.radius < -40) {
+                    s.x = logicalWidth + 40
+                }
+
+                // Handle hit hiding
+                if (s.hiddenFor > 0) {
+                    s.hiddenFor -= dt
+                    continue
+                }
+
+                drawSoldier(s)
+            }
+
+            // Update + draw shot ring(s)
+            shotsRef.current = shotsRef.current.filter((shot) => {
+                shot.life += dt
+                if (shot.life > maxShotLife) return false
+
+                const t = shot.life / maxShotLife
+                const radius = 8 + 40 * t
+                ctx.beginPath()
+                ctx.arc(shot.x, shot.y, radius, 0, Math.PI * 2)
+                ctx.strokeStyle = `rgba(248,250,252,${1 - t})`
+                ctx.lineWidth = 2
+                ctx.stroke()
+
+                // center dot
+                ctx.beginPath()
+                ctx.arc(shot.x, shot.y, 2, 0, Math.PI * 2)
+                ctx.fillStyle = 'rgba(248,250,252,0.9)'
+                ctx.fill()
+
+                return true
+            })
+
+            // Update + draw poofs
+            poofsRef.current = poofsRef.current.filter((poof) => {
+                poof.life += dt
+                if (poof.life > maxPoofLife) return false
+
+                const t = poof.life / maxPoofLife
+                const rays = 8
+                const maxLen = 22
+
+                ctx.strokeStyle = `rgba(248,250,252,${1 - t})`
+                ctx.lineWidth = 1.5
+
+                for (let i = 0; i < rays; i++) {
+                    const angle = (Math.PI * 2 * i) / rays
+                    const len = 6 + maxLen * t
+                    const x2 = poof.x + Math.cos(angle) * len
+                    const y2 = poof.y + Math.sin(angle) * len
+
+                    ctx.beginPath()
+                    ctx.moveTo(poof.x, poof.y)
+                    ctx.lineTo(x2, y2)
+                    ctx.stroke()
+                }
+
+                return true
+            })
+
+            animationFrameId = requestAnimationFrame(render)
+        }
+
+        animationFrameId = requestAnimationFrame(render)
 
         return () => {
-            timers.current.forEach(clearTimeout);
-            timers.current = [];
-        };
-    }, [cycleKey, tokens.length]);
+            cancelAnimationFrame(animationFrameId)
+            window.removeEventListener('resize', resize)
+        }
+    }, [])
+
+    const handleShoot = (event) => {
+        const canvas = canvasRef.current
+        if (!canvas) return
+
+        const rect = canvas.getBoundingClientRect()
+        const pixelRatio = window.devicePixelRatio || 1
+
+        let clientX
+        let clientY
+
+        if ('touches' in event && event.touches.length > 0) {
+            clientX = event.touches[0].clientX
+            clientY = event.touches[0].clientY
+        } else if ('clientX' in event) {
+            clientX = event.clientX
+            clientY = event.clientY
+        } else if ('nativeEvent' in event && event.nativeEvent) {
+            clientX = event.nativeEvent.clientX
+            clientY = event.nativeEvent.clientY
+        } else {
+            return
+        }
+
+        const scaleX = (canvas.width / pixelRatio) / rect.width
+        const scaleY = (canvas.height / pixelRatio) / rect.height
+
+        const x = (clientX - rect.left) * scaleX
+        const y = (clientY - rect.top) * scaleY
+
+        // Add shot effect
+        shotsRef.current.push({ x, y, life: 0 })
+
+        // Check for hits
+        const soldiers = soldiersRef.current
+        for (const s of soldiers) {
+            if (s.hiddenFor > 0) continue
+
+            const dx = x - s.x
+            const dy = y - s.y
+            const distSq = dx * dx + dy * dy
+            const hitRadius = s.radius * 1.7
+
+            if (distSq <= hitRadius * hitRadius) {
+                s.hiddenFor = 0.3
+                poofsRef.current.push({ x: s.x, y: s.y, life: 0 })
+                break // only pop one per shot
+            }
+        }
+    }
+
+    const handleTouchStart = (event) => {
+        event.preventDefault()
+        handleShoot(event)
+    }
 
     return (
-        <section
-            key={cycleKey}
-            className={[
-                "relative w-full",
-                "bg-gradient-to-br from-zinc-50 via-white to-zinc-100",
-                "dark:from-zinc-950 dark:via-zinc-925/90 dark:to-zinc-900",
-                "border-b dark:border-zinc-800",
-                "overflow-hidden",
-                "h-[60vh] md:h-[70vh] lg:h-[72vh]",
-            ].join(" ")}
+        <div
+            ref={containerRef}
+            className="relative h-full w-full cursor-crosshair select-none touch-none"
+            onClick={handleShoot}
+            onTouchStart={handleTouchStart}
         >
-            {/* Soft background blobs */}
-            <div className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-400/10" />
-            <div className="pointer-events-none absolute -bottom-28 -right-20 h-[28rem] w-[28rem] rounded-full bg-fuchsia-500/10 blur-3xl dark:bg-fuchsia-400/10" />
+            <canvas
+                ref={canvasRef}
+                className="h-full w-full"
+            />
+            {/* Arcade helper text */}
+            <div className="pointer-events-none absolute left-1/2 bottom-2 -translate-x-1/2 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-amber-300/90 drop-shadow-[0_0_6px_rgba(0,0,0,0.9)] animate-pulse">
+                Tap or Click to shoot!
+            </div>
+        </div>
+    )
+}
 
-            {/* Headline */}
-            <div className="relative mx-auto max-w-6xl px-4 md:px-6 pt-14 md:pt-20">
-                <HeadlineCycle lines={HEADLINES} />
+export default function AnimatedTopBanner() {
+    return (
+        <section className="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 dark:border-zinc-800">
+            <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
+                {/* 
+                  ⬇️ Keep / paste your existing text content here.
+                  Headline, subheading, pills, buttons, whatever you already had.
+                */}
+                <div className="space-y-3">
+                    {/* Example structure — replace with your actual existing content */}
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
+                        Designer • Developer • Game Tinkerer
+                    </p>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
+                        Building playful, tactical web experiences.
+                    </h1>
+                    <p className="text-sm md:text-base text-zinc-400">
+                        From inventory tools for vet hospitals to post-apocalyptic
+                        strategy games — I like mixing clean UI with systems that
+                        feel alive.
+                    </p>
+                    {/* Drop your CTA buttons back in here if you had them */}
+                </div>
+
+                {/* New interactive background battlefield */}
+                <div className="relative h-48 md:h-56 lg:h-64">
+                    <div className="absolute inset-0 rounded-2xl border border-zinc-800/60 bg-gradient-to-b from-slate-900 via-slate-950 to-black shadow-[0_18px_45px_rgba(0,0,0,0.75)]">
+                        <SoldierBattlefield />
+                    </div>
+                </div>
             </div>
 
-            {/* Words */}
-            <motion.div
-                className="relative mx-auto max-w-6xl px-4 md:px-6 mt-8 md:mt-12"
-                variants={container}
-                initial="hidden"
-                animate="show"
-            >
-                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-                    {tokens.map((t) => (
-                        <motion.span
-                            key={t.key}
-                            variants={itemWord}
-                            className="text-lg md:text-2xl lg:text-3xl font-semibold tracking-tight"
-                        >
-                            <WordBadge text={t.value} />
-                        </motion.span>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Vertical lightning strike (top -> bottom) */}
-            <AnimatePresence>
-                <motion.div key={boltFiredKey} className="absolute inset-0">
-                    <VerticalBolt seed={boltSeed} />
-                </motion.div>
-            </AnimatePresence>
-
-            {/* Screen flash overlay (synced to strike) */}
-            <AnimatePresence>
-                {showFlash && (
-                    <motion.div
-                        key={`flash-${boltFiredKey}`}
-                        className="absolute inset-0 pointer-events-none bg-white dark:bg-zinc-50"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: [0, 0.9, 0] }}
-                        transition={{ duration: 0.14, ease: "easeOut" }}
-                    />
-                )}
-            </AnimatePresence>
-
-            {/* Bottom divider shimmer */}
-            <motion.div
-                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-300 dark:via-zinc-700 to-transparent"
-                initial={{ opacity: 0.2 }}
-                animate={{ opacity: [0.2, 0.6, 0.2] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
+            {/* Soft vignette / glow, no lightning or flash anymore */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.09),transparent_65%)]" />
         </section>
-    );
+    )
 }
