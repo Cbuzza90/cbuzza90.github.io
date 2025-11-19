@@ -6,8 +6,8 @@ import Game from './pages/Game.jsx'
 import ACG from './pages/games/ACG.jsx'
 import Environments from './pages/games/Enviroments.jsx'
 
-
 // App pages
+import VetInventory from './pages/apps/VetInventory.jsx'
 
 function Footer() {
   return (
@@ -33,10 +33,9 @@ export default function App() {
           <Route path="/game/environments" element={<Environments />} />
 
           {/* App Development */}
-          <Route path="/apps/vetinventory" element={<VetInventory />} />
+          <Route path="/app/vetinventory" element={<VetInventory />} />
 
-          {/* Web Development */}
-
+          {/* Web Development – can add later */}
         </Routes>
       </main>
       <Footer />
