@@ -397,12 +397,11 @@ export default function AnimatedTopBanner() {
     return (
         <section className="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 dark:border-zinc-800">
             <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
-                {/* 
-                  ⬇️ Keep / paste your existing text content here.
-                  Headline, subheading, pills, buttons, whatever you already had.
-                */}
+
                 <div className="space-y-3">
-                    {/* Example structure — replace with your actual existing content */}
+                    <p className="text-[20px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
+                        Chris Buzza
+                    </p>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
                         Designer • Learning Developer • Game Tinkerer
                     </p>

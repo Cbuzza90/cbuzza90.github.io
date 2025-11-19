@@ -12,9 +12,9 @@ function Pill({ children }) {
 
 // Each GIF now has its *own* duration (ms)
 const VET_GIFS = [
-    { src: '/images/VetApp/VetApp-1.gif', duration: 7060 },
-    { src: '/images/VetApp/VetApp-2.gif', duration: 7060 },
-    { src: '/images/VetApp/VetApp-3.gif', duration: 7060 },
+    { src: '/images/VetApp/VetApp1.mp4', duration: 7060 },
+    { src: '/images/VetApp/VetApp2.mp4', duration: 7060 },
+    { src: '/images/VetApp/VetApp3.mp4', duration: 7060 },
 ]
 
 export default function VetInventory() {
