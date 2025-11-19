@@ -28,10 +28,11 @@ const ENV_IMAGES = [
    ACG rotating GIFs
 --------------------------------------------- */
 const ACG_GIFS = [
-    '/images/ACG/AChampionsGauntlet.Gameplay.gif',               // Boss + Lightning Spell
-    '/images/ACG/ACG-Boomerangespell.gif',                       // Boomerang Spell
-    '/images/ACG/ABC-QuickBindSpellSheet.gif',                   // Inventory Hotkey QuickBind
-    '/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif',           // Inventory / melee flow
+    '/public/images/ACG/ACG-CoverPhoto.png',
+    '/images/ACG/AChampionsGauntlet.Gameplay.gif',
+    '/images/ACG/ACG-Boomerangespell.gif',
+    '/images/ACG/ABC-QuickBindSpellSheet.gif',
+    '/images/ACG/ACG-MeleeView.BatSpawnerPortals.gif',
 ]
 
 export default function Game() {
@@ -41,6 +42,9 @@ export default function Game() {
     // indexes for rotating cards
     const [envIndex, setEnvIndex] = useState(0)
     const [acgIndex, setAcgIndex] = useState(0)
+
+    // shared fade state for rotating thumbnails
+    const [isFading, setIsFading] = useState(false)
 
     /* ---------------------------------------------
        Rotate environment + ACG pictures every 3s
@@ -53,6 +57,16 @@ export default function Game() {
 
         return () => clearInterval(interval)
     }, [])
+
+    /* ---------------------------------------------
+       Trigger fade animation when index changes
+       (simple fade-in on each new frame)
+    --------------------------------------------- */
+    useEffect(() => {
+        setIsFading(true)
+        const t = setTimeout(() => setIsFading(false), 300) // match duration-300
+        return () => clearTimeout(t)
+    }, [envIndex, acgIndex])
 
     /* ---------------------------------------------
        Load fallback project cards
@@ -111,7 +125,10 @@ export default function Game() {
                                                     : p.thumb
                                         }
                                         alt={p.title}
-                                        className="w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-[1.15]"
+                                        className={`w-full aspect-[2/3] object-cover 
+                                            transition-transform group-hover:scale-[1.15]
+                                            transition-opacity duration-300
+                                            ${isFading ? 'opacity-0' : 'opacity-100'}`}
                                         loading="lazy"
                                     />
 
