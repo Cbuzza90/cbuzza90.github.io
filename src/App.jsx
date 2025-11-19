@@ -33,7 +33,7 @@ export default function App() {
           <Route path="/game/environments" element={<Environments />} />
 
           {/* App Development */}
-          <Route path="/app/vetinventory" element={<VetInventory />} />
+          <Route path="/apps/vetinventory" element={<VetInventory />} />
 
           {/* Web Development */}
 
