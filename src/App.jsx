@@ -9,6 +9,9 @@ import Environments from './pages/games/Enviroments.jsx'
 // App pages
 import VetInventory from './pages/apps/VetInventory.jsx'
 
+// Web pages
+import ThisPage from './pages/web/ThisPage.jsx'
+
 function Footer() {
   return (
     <footer className="border-t dark:border-zinc-800 mt-16">
@@ -35,9 +38,11 @@ export default function App() {
           {/* App Development */}
           <Route path="/app/vetinventory" element={<VetInventory />} />
 
-          {/* Web Development – can add later */}
+          {/* Web Development */}
+          <Route path="/web/thispage" element={<ThisPage />} />
         </Routes>
       </main>
+
       <Footer />
     </div>
   )
