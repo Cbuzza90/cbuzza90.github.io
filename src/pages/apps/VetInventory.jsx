@@ -77,7 +77,7 @@ export default function VetInventory() {
                     <img
                         src={VET_GIFS[prevIndex].src}
                         alt="Vet app preview"
-                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1.25]"
+                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1]"
                     />
 
                     {/* Fading-in frame */}
@@ -85,7 +85,7 @@ export default function VetInventory() {
                         key={VET_GIFS[index].src}
                         src={VET_GIFS[index].src}
                         alt="Vet app preview"
-                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1.25]"
+                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1]"
                         style={{ animation: 'crossfade 0.7s ease-in-out' }}
                     />
                 </div>
