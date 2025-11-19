@@ -83,8 +83,8 @@ export default function Game() {
             },
             {
                 id: 'Sector88',
-                title: '3rd placeholder',
-                thumb: 'Upcoming Finished Game',
+                title: 'Upcoming Finished Game',
+                thumb: '/images/Sector88',
             },
         ]
         setProjects(fallback)
@@ -119,7 +119,7 @@ export default function Game() {
                         {projects.map(p => (
                             <a
                                 key={p.id}
-                                href={`/projects/${p.id}`}
+                                href={`/games/${p.id}`}
                                 className="group block overflow-hidden rounded-2xl border dark:border-zinc-800 bg-white dark:bg-zinc-950"
                                 aria-label={p.title}
                             >
