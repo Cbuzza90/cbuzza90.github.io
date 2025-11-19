@@ -5,7 +5,7 @@ import Home from './pages/Home.jsx'
 import Game from './pages/Game.jsx'
 import ACG from './pages/games/ACG.jsx'
 import Environments from './pages/games/Enviroments.jsx'
-import ThisPage from './pages/web/thispage.jsx'
+import ThisPage from './pages/web/ThisPage.jsx'
 
 
 // App pages
