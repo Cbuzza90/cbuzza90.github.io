@@ -72,15 +72,17 @@ export default function VetInventory() {
 
             {/* ⭐ Rotating GIF Preview Section */}
             <Section title="Live Preview" subtitle="3 rotating GIFs showing app flow">
-                <div className="relative w-full max-w-2xl mx-auto aspect-[16/9] overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
+                {/*
+                    We let the GIF define the natural height, then crop ~10% off
+                    each side by zooming in with scale-[1.25] inside an
+                    overflow-hidden container.
+                */}
+                <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-2xl border dark:border-zinc-800 bg-black">
                     {/* Previous frame (base) */}
                     <img
                         src={VET_GIFS[prevIndex].src}
                         alt="Vet app preview"
-                        className={
-                            // 🔧 tweak cropping here: object-center / object-top / object-bottom etc
-                            'absolute inset-0 w-full h-full object-cover object-center'
-                        }
+                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1.25]"
                     />
 
                     {/* Fading-in frame */}
@@ -88,7 +90,7 @@ export default function VetInventory() {
                         key={VET_GIFS[index].src}
                         src={VET_GIFS[index].src}
                         alt="Vet app preview"
-                        className="absolute inset-0 w-full h-full object-cover object-center"
+                        className="absolute inset-0 w-full h-full object-cover object-center origin-center scale-[1.25]"
                         style={{ animation: 'crossfade 0.7s ease-in-out' }}
                     />
                 </div>
