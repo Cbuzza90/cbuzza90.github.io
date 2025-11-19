@@ -8,7 +8,6 @@ import Environments from './pages/games/Enviroments.jsx'
 
 
 // App pages
-import VetInventory from './pages/app/vetinventory.jsx'
 
 function Footer() {
   return (
