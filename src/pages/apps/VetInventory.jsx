@@ -11,7 +11,7 @@ function Pill({ children }) {
     )
 }
 
-// Each GIF now has its *own* duration (ms)
+// Each video now has its own duration (ms)
 const VET_GIFS = [
     { src: '/images/VetApp/VetApp1.mp4', duration: 7060 },
     { src: '/images/VetApp/VetApp2.mp4', duration: 7060 },
@@ -22,7 +22,7 @@ export default function VetInventory() {
     const [index, setIndex] = useState(0)
     const [prevIndex, setPrevIndex] = useState(0)
 
-    // Each GIF uses its own timing
+    // Rotate videos using their own timing
     useEffect(() => {
         const timeout = setTimeout(() => {
             setPrevIndex(index)
@@ -35,6 +35,7 @@ export default function VetInventory() {
     return (
         <>
             <Header />
+
             {/* local fade animation */}
             <style>{`
                 @keyframes crossfade {
@@ -42,6 +43,7 @@ export default function VetInventory() {
                     to { opacity: 1; }
                 }
             `}</style>
+
             <Section className="pt-10 md:pt-16">
                 <div className="mb-4">
                     <Link
@@ -68,7 +70,7 @@ export default function VetInventory() {
                 </div>
             </Section>
 
-            {/* Rotating Preview Section with iPhone frame + side cropping */}
+            {/* Rotating Preview Section with iPhone-style frame */}
             <Section title="Live Preview" subtitle="3 rotating previews showing app flow">
                 <div className="relative w-full max-w-xs mx-auto">
                     {/* soft glow behind phone */}
@@ -77,104 +79,128 @@ export default function VetInventory() {
                         <div className="absolute inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_bottom,_rgba(16,185,129,0.28),transparent_60%)] blur-3xl opacity-50" />
                     </div>
 
-                    {/* --- outer iPhone body --- */}
+                    {/* --- outer iPhone body / frame --- */}
                     <div
                         className="
-                relative 
-                rounded-[2.4rem]
-                border-[6px]
-                border-zinc-900/90
-                dark:border-zinc-700
-                bg-gradient-to-br from-zinc-900 via-black to-zinc-800
-                shadow-[0_18px_45px_rgba(0,0,0,0.7)]
-                pb-3 pt-3
-                px-3
-            "
+                            relative 
+                            mx-auto
+                            w-full
+                            max-w-[280px]
+                            rounded-[2.5rem]
+                            border-[3px]
+                            border-zinc-700/90
+                            bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),transparent_55%),linear-gradient(145deg,#111827,#020617,#111827)]
+                            shadow-[0_22px_55px_rgba(0,0,0,0.8)]
+                        "
                     >
-                        {/* subtle edge highlight */}
-                        <div className="pointer-events-none absolute inset-[6px] rounded-[2rem] border border-white/5" />
+                        {/* subtle metal edge highlight */}
+                        <div className="pointer-events-none absolute inset-px rounded-[2.35rem] border border-white/10" />
 
-                        {/* --- inner bezel (screen area mask) --- */}
+                        {/* side buttons (left) */}
+                        <div className="pointer-events-none absolute -left-[2px] top-[70px] h-10 w-[3px] rounded-full bg-zinc-500/70" />
+                        <div className="pointer-events-none absolute -left-[2px] top-[120px] h-24 w-[3px] rounded-full bg-zinc-500/70" />
+
+                        {/* side button (right) */}
+                        <div className="pointer-events-none absolute -right-[2px] top-[100px] h-40 w-[3px] rounded-full bg-zinc-500/70" />
+
+                        {/* --- black bezel layer --- */}
                         <div
                             className="
-                    overflow-hidden
-                    rounded-[1.9rem]
-                    bg-black
-                    aspect-[9/16]
-                    relative
-                    border border-black/60
-                "
+                                relative
+                                m-[6px]
+                                rounded-[2.1rem]
+                                bg-black
+                                border border-black
+                                overflow-hidden
+                            "
                         >
-                            {/* Previous frame */}
-                            <video
-                                key={`prev-${VET_GIFS[prevIndex].src}`}
-                                src={VET_GIFS[prevIndex].src}
+                            {/* --- actual screen area --- */}
+                            <div
                                 className="
-                        absolute inset-0 w-full h-full 
-                        object-cover object-center 
-                        scale-[1.02]
-                        translate-y-[4px]
-                    "
-                                muted
-                                autoPlay
-                                loop
-                                playsInline
-                            />
+                                    relative
+                                    m-[6px]
+                                    rounded-[1.9rem]
+                                    overflow-hidden
+                                    aspect-[9/19.5]
+                                    bg-black
+                                "
+                            >
+                                {/* Previous frame */}
+                                <video
+                                    key={`prev-${VET_GIFS[prevIndex].src}`}
+                                    src={VET_GIFS[prevIndex].src}
+                                    className="
+                                        absolute inset-0 w-full h-full 
+                                        object-cover object-center 
+                                        scale-[1.02]
+                                        translate-y-[42px]
+                                    "
+                                    muted
+                                    autoPlay
+                                    loop
+                                    playsInline
+                                />
 
-                            {/* New frame fading in */}
-                            <video
-                                key={`current-${VET_GIFS[index].src}`}
-                                src={VET_GIFS[index].src}
+                                {/* New frame fading in */}
+                                <video
+                                    key={`current-${VET_GIFS[index].src}`}
+                                    src={VET_GIFS[index].src}
+                                    className="
+                                        absolute inset-0 w-full h-full 
+                                        object-cover object-center 
+                                        scale-[1.02]
+                                        translate-y-[42px]
+                                    "
+                                    muted
+                                    autoPlay
+                                    loop
+                                    playsInline
+                                    style={{ animation: 'crossfade 0.7s ease-in-out' }}
+                                />
+
+                                {/* inner vignette */}
+                                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,_transparent_55%,_rgba(0,0,0,0.8))]" />
+
+                                {/* Dynamic Island */}
+                                <div
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        top-2.5
+                                        left-1/2
+                                        -translate-x-1/2
+                                        h-6
+                                        w-28
+                                        rounded-full
+                                        bg-black
+                                        shadow-[0_0_0_1px_rgba(15,23,42,0.9)]
+                                        flex items-center justify-center
+                                        gap-1.5
+                                    "
+                                >
+                                    <div className="h-2 w-10 rounded-full bg-zinc-700/80" />
+                                    <div className="h-2.5 w-2.5 rounded-full bg-zinc-500/85" />
+                                </div>
+                            </div>
+
+                            {/* bottom home bar (inside screen bevel area) */}
+                            <div
                                 className="
-                        absolute inset-0 w-full h-full 
-                        object-cover object-center 
-                        scale-[1.02]
-                        translate-y-[4px]
-                    "
-                                muted
-                                autoPlay
-                                loop
-                                playsInline
-                                style={{ animation: 'crossfade 0.7s ease-in-out' }}
+                                    pointer-events-none
+                                    absolute
+                                    bottom-3
+                                    left-1/2
+                                    -translate-x-1/2
+                                    w-24
+                                    h-1.5
+                                    rounded-full
+                                    bg-zinc-400/70
+                                "
                             />
-
-                            {/* subtle inner vignette */}
-                            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_rgba(0,0,0,0.7))]" />
                         </div>
-
-                        {/* --- top notch area --- */}
-                        <div
-                            className="
-                    absolute top-3 left-1/2 -translate-x-1/2
-                    flex items-center justify-center
-                    h-6 w-32
-                    rounded-full
-                    bg-zinc-900
-                    dark:bg-zinc-800
-                    shadow-[0_0_0_1px_rgba(0,0,0,0.7)]
-                "
-                        >
-                            <div className="h-1.5 w-16 rounded-full bg-zinc-700/80" />
-                            <div className="ml-2 h-2.5 w-2.5 rounded-full bg-zinc-500/80" />
-                        </div>
-
-                        {/* --- bottom home bar --- */}
-                        <div
-                            className="
-                    absolute bottom-3 left-1/2 -translate-x-1/2
-                    w-24 h-1.5
-                    rounded-full
-                    bg-zinc-300/60
-                    dark:bg-zinc-500/60
-                "
-                        />
                     </div>
                 </div>
             </Section>
-
-
-
-
 
             <Section title="Problem & Goal">
                 <div className="grid lg:grid-cols-3 gap-8">
