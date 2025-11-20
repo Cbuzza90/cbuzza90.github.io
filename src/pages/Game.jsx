@@ -90,17 +90,17 @@ export default function Game() {
         const fallback = [
             {
                 id: 'ACG',
-                title: 'Unity Game',
+                title: '  ',
                 thumb: null, // replaced by GIF slideshow
             },
             {
                 id: 'Enviroments',
-                title: 'Environment / Prefabs',
+                title: '  ',
                 thumb: null, // replaced by slideshow
             },
             {
                 id: 'Sector88',
-                title: 'Upcoming Finished Game',
+                title: '  ',
                 thumb: '/images/Sector88/Sector88_CoverPhoto.png',
             },
         ]
@@ -141,7 +141,7 @@ export default function Game() {
                                 aria-label={p.title}
                             >
                                 <div className="relative">
-                                    <div className="relative w-full aspect-[2/3] overflow-hidden transition-transform duration-300 group-hover:scale-[1.15]">
+                                    <div className="relative w-full aspect-[16/9] overflow-hidden transition-transform duration-300 group-hover:scale-[1.15]">
                                         {p.id === 'Enviroments' ? (
                                             <>
                                                 {/* base (old) frame */}

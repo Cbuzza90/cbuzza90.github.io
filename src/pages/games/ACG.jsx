@@ -24,7 +24,7 @@ function MediaTile({ title, src, type = 'image', onClick }) {
                 {type === 'video' ? (
                     <video
                         src={src}
-                        className="w-full aspect-[16/9] object-cover"
+                        className="w-full h-full aspect-[16/9] object-contain"
                         muted
                         autoPlay
                         loop
@@ -34,7 +34,7 @@ function MediaTile({ title, src, type = 'image', onClick }) {
                     <img
                         src={src}
                         alt={title}
-                        className="w-full aspect-[1/1] object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        className="w-full aspect-[16/9] object-contain transition-transform duration-300 group-hover:scale-[1]"
                         loading="lazy"
                     />
                 )}
