@@ -5,7 +5,6 @@ import Header from '../../components/Header.jsx'
 
 function Pill({ children }) {
     return (
-
         <span className="inline-flex items-center rounded-full border dark:border-zinc-800 px-3 py-1 text-xs bg-white dark:bg-zinc-950">
             {children}
         </span>
@@ -63,6 +62,7 @@ export default function ACG() {
     return (
         <>
             <Header />
+
             {/* Breadcrumb */}
             <Section className="pt-8">
                 <Link
@@ -77,12 +77,11 @@ export default function ACG() {
             <Section className="pt-2">
                 <h1 className="text-3xl md:text-5xl font-semibold">A Champion’s Gauntlet</h1>
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl">
-                    Pixel-art action adventure. Face demonic bats, survive the ice golem, and loot your way
-                    through a modular gauntlet of rooms.
+                    Pixel-art action roguelite prototype. Chain boss fights, dodge telegraphed patterns, and
+                    build your spell kit run-to-run inside a modular gauntlet of rooms.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
-
                     <a
                         href="https://github.com/Cbuzza90"
                         target="_blank"
@@ -94,7 +93,8 @@ export default function ACG() {
                     <div className="hidden sm:flex items-center gap-2">
                         <Pill>Vite/React</Pill>
                         <Pill>Canvas/WebGL</Pill>
-                        <Pill>WIP</Pill>
+                        <Pill>Roguelite Boss Rush</Pill>
+                        <Pill>On Hold</Pill>
                     </div>
                 </div>
             </Section>
@@ -103,22 +103,68 @@ export default function ACG() {
             <Section title="About">
                 <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                     <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                        <strong>ACG</strong> is a fast-iteration prototype where I test encounter pacing,
-                        telegraphs, and input readability. The loop is simple: explore, fight, collect, repeat —
-                        with a focus on crunchy feedback and clear enemy intent.
+                        <strong>A Champion’s Gauntlet (ACG)</strong> started as a fast-iteration playground for
+                        combat feel. I used it to intiially learn unity, sprite sheets, tried skeleton animations, and learned how to use the unity input system, well creating a skill inventory type system. The goal was a tight loop, explore a small zone, trigger
+                        a boss, survive, collect rewards, and immediately roll into the next fight.
+                    </p>
+                    <p className="mt-3 text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                        The project is currently <span className="font-semibold">on hold</span> while I focus on
+                        shipping more production-ready work(like{' '}
+                        <span className="font-semibold">Sector 88: Clanker Protocol</span>), but the knowledge I learned well making mistakes while trying to make this were important.
+                    </p>
+                </div>
+            </Section>
+
+            {/* Design Notes & Inspiration */}
+            <Section
+                title="Design Notes & Inspiration"
+                subtitle="Where the idea came from and what I was experimenting with"
+            >
+                <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950 space-y-3">
+                    <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                        ACG is heavily inspired by games like <strong>Terraria</strong> — especially the feeling of
+                        jumping from boss to boss with a kit that keeps evolving. I wanted that “one more run”
+                        energy, but in a tighter, roguelite-style format.
+                    </p>
+
+                    <ul className="list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
+                        <li>
+                            <strong>Constant boss pressure:</strong> instead of long exploration phases, the loop
+                            leans toward chained boss encounters with short breathing rooms between fights.
+                        </li>
+                        <li>
+                            <strong>Randomized zones:</strong> rooms and arenas are designed as modular chunks so a
+                            run can remix layouts, hazards, and spawn patterns.
+                        </li>
+                        <li>
+                            <strong>Spell discovery by chance:</strong> spells are found and upgraded randomly as
+                            you defeat bosses, so each run pushes you into different builds and playstyles.
+                        </li>
+                        <li>
+                            <strong>Readable chaos:</strong> even when the screen is busy, enemy telegraphs and
+                            spell effects are tuned to stay readable at a glance.
+                        </li>
+                    </ul>
+
+                    <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                        Eventually I paused development — I needed to prioritize getting a job and client-ready
+                        portfolio work. That pivot led me into collaborating on{' '}
+                        <span className="font-semibold">Sector 88: Clanker Protocol</span>, where a lot of these
+                        ideas (encounter pacing, telegraphs, and systemic design) are being recycled in a more
+                        ambitious setting.
                     </p>
                 </div>
             </Section>
 
             {/* Feature Highlights */}
-            <Section title="Feature Highlights" subtitle="Systems I’m iterating on">
+            <Section title="Feature Highlights" subtitle="Systems I iterated on in this prototype">
                 <div className="grid sm:grid-cols-2 gap-5">
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                         <h3 className="text-lg font-semibold">Inventory & Loot</h3>
                         <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
                             <li>Grid inventory with stack rules & rarity colors</li>
                             <li>Context actions (equip, drop, compare)</li>
-                            <li>Lightweight item JSON with versioned schema</li>
+                            <li>Lightweight item JSON with a versioned schema</li>
                         </ul>
                     </div>
 
@@ -160,7 +206,7 @@ export default function ACG() {
                         onClick={setLightbox}
                     />
                     <MediaTile
-                        title="Boomerange Spell"
+                        title="Boomerang Spell"
                         src="/images/ACG/ACG-Boomerangespell.gif"
                         onClick={setLightbox}
                     />

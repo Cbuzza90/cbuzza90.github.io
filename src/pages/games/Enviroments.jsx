@@ -103,7 +103,7 @@ export default function Environments() {
             <Section className="pt-2">
                 <h1 className="text-3xl md:text-5xl font-semibold">Environment Screenshots</h1>
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl">
-                    Selected blockouts, mood passes, and layout explorations built in RustEdit and CS2’s Hammer (Source 2).
+                    Enviroments and Prefabs, built in RustEdit and CS2’s Hammer (Source 2).
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3 items-center">
