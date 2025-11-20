@@ -402,7 +402,7 @@ export default function AnimatedTopBanner() {
                     <p className="text-6xl md:text-6xl lg:text-6xl font-semibold text-zinc-50">
                         Chris Buzza
                     </p>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
+                    <p className="text-[8px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
                         Designer • Learning Developer • Game Tinkerer
                     </p>
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
