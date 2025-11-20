@@ -29,7 +29,7 @@ const ENV_IMAGES = [
    ACG rotating GIFs
 --------------------------------------------- */
 const ACG_GIFS = [
-    '/images/ACG/ACG-CoverPhoto.png',
+    '/images/ACG/ACG-CoverPhoto2.png',
     '/images/ACG/AChampionsGauntlet.Gameplay.gif',
     '/images/ACG/ACG-Boomerangespell.gif',
     '/images/ACG/ABC-QuickBindSpellSheet.gif',
@@ -101,7 +101,7 @@ export default function Game() {
             {
                 id: 'Sector88',
                 title: '  ',
-                thumb: '/images/Sector88/Sector88_CoverPhoto.png',
+                thumb: '/images/Sector88/Sector88_CoverPhoto2.png',
             },
         ]
         setProjects(fallback)
