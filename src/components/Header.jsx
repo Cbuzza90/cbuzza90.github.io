@@ -25,35 +25,35 @@ function ThemeToggle() {
 
 const quickItems = [
     {
-        href: "/game",
-        title: "Game Development",
-        desc: "Prototypes, tools, and UI for web/desktop.",
+        href: "/projects/aviation",
+        title: "Aviation",
+        desc: "Study tools and aviation learning projects.",
+        icon: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M21 3 3 11l7 2 2 7 3-5 6-12Z" strokeLinejoin="round" />
+                <path d="m10 13 5-5" strokeLinecap="round" />
+            </svg>
+        ),
+    },
+    {
+        href: "/projects/software",
+        title: "Software",
+        desc: "Practical apps and web experiences.",
+        icon: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+                <path d="M3 8h18m-11 4-3 2 3 2m4-4 3 2-3 2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
+    },
+    {
+        href: "/projects/games",
+        title: "Video Games",
+        desc: "Gameplay prototypes and environments.",
         icon: (
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <rect x="3.5" y="6.5" width="17" height="11" rx="3" />
                 <path d="M8 9h2M8 15h2M14 10h2M14 14h2" />
-            </svg>
-        ),
-    },
-    {
-        href: "/app/vetinventory",
-        title: "App Development",
-        desc: "Inventory tools and practical application design.",
-        icon: (
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
-                <circle cx="12" cy="18" r="1" fill="currentColor" />
-            </svg>
-        ),
-    },
-    {
-        href: "/projects/websites",
-        title: "Web Development",
-        desc: "React (Vite) frontends + Express APIs.",
-        icon: (
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <rect x="3" y="5" width="18" height="14" rx="2" />
-                <path d="M3 9h18M9 19V9" />
             </svg>
         ),
     },

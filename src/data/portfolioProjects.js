@@ -1,6 +1,6 @@
 export const portfolioProjects = [
     {
-        id: 'aviation-study', title: 'Aviation Study', category: 'websites',
+        id: 'aviation-study', title: 'Aviation Study', category: 'websites', area: 'aviation',
         brief: 'A course study hub for my aviation technician group, with practice tests, searchable notes, and upcoming test dates.',
         role: 'Solo developer · learning tools, interface and course structure',
         visual: 'study',
@@ -8,7 +8,7 @@ export const portfolioProjects = [
         links: { demo: 'https://buzzasolutions.com/', github: 'https://github.com/Cbuzza90/buzzasolutions-site' },
     },
     {
-        id: 'vet-inventory', title: 'Vet Inventory System', category: 'apps',
+        id: 'vet-inventory', title: 'Vet Inventory System', category: 'apps', area: 'software',
         brief: 'A mobile-friendly inventory tool designed around the way a veterinary surgery team finds and counts supplies.',
         role: 'Solo developer · UI, API, database and authentication',
         video: '/images/VetApp/VetApp1.mp4', imageAlt: 'Vet Inventory app interface preview',
@@ -16,7 +16,7 @@ export const portfolioProjects = [
         links: { github: 'https://github.com/Cbuzza90/VetInventorySystem', caseStudy: '/app/vetinventory' },
     },
     {
-        id: 'acg', title: 'A Champion’s Gauntlet', category: 'games',
+        id: 'acg', title: 'A Champion’s Gauntlet', category: 'games', area: 'games',
         brief: 'A Unity action game prototype exploring combat, spells and inventory interactions. Closed as I shifted my focus to 3D work.',
         role: 'Solo developer · gameplay prototype and systems',
         status: 'CLOSED',
@@ -25,7 +25,7 @@ export const portfolioProjects = [
         links: { github: 'https://github.com/Cbuzza90/A_Champions_Gauntlet', caseStudy: '/game/acg' },
     },
     {
-        id: 'environments', title: 'Game Environments', category: 'games',
+        id: 'environments', title: 'Game Environments', category: 'games', area: 'games',
         brief: 'Environment and level work created with RustEdit and Counter-Strike 2’s Hammer editor.',
         role: 'Environment design · layout and visual composition',
         image: '/images/Env/MilitaryBunker_OverView.png', imageAlt: 'Military bunker game environment overview',
@@ -33,7 +33,7 @@ export const portfolioProjects = [
         links: { caseStudy: '/game/environments' },
     },
     {
-        id: 'portfolio', title: 'This Portfolio', category: 'websites',
+        id: 'portfolio', title: 'This Portfolio', category: 'websites', area: 'software',
         brief: 'A responsive portfolio built to present software and game projects with a playful touch.',
         role: 'Solo developer · design and frontend',
         visual: 'portfolio',

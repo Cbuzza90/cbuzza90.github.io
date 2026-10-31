@@ -8,24 +8,26 @@ import { portfolioProjects } from '../data/portfolioProjects.js'
 
 const CATEGORIES = [
     { key: "all", label: "All" },
-    { key: "apps", label: "Apps" },
-    { key: "websites", label: "Websites" },
-    { key: "games", label: "Games" },
+    { key: "aviation", label: "Aviation" },
+    { key: "software", label: "Software" },
+    { key: "games", label: "Video Games" },
 ];
 
 export default function Projects() {
-    const { category } = useParams(); // apps | websites | games
+    const { category } = useParams();
 
     // Normalize route category
     const active = useMemo(() => {
         if (!category) return "all";
-        const match = CATEGORIES.some((c) => c.key === category.toLowerCase());
-        return match ? category.toLowerCase() : "all";
+        const requested = category.toLowerCase();
+        if (requested === "apps" || requested === "websites") return "software";
+        const match = CATEGORIES.some((c) => c.key === requested);
+        return match ? requested : "all";
     }, [category]);
 
     const filtered = useMemo(() => {
         if (active === "all") return portfolioProjects;
-        return portfolioProjects.filter((p) => p.category === active);
+        return portfolioProjects.filter((p) => p.area === active);
     }, [active]);
 
     const tab = (to, label) => (
@@ -52,12 +54,12 @@ export default function Projects() {
             <Header />
             <Section>
                 <h1 className="text-3xl font-semibold md:text-4xl">Projects</h1>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Browse by category</p>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Explore aviation, software and video game projects.</p>
                 <div className="mt-6 flex flex-wrap items-center gap-2">
                     {tab("/projects", "All")}
-                    {tab("/projects/apps", "Apps")}
-                    {tab("/projects/websites", "Websites")}
-                    {tab("/projects/games", "Games")}
+                    {tab("/projects/aviation", "Aviation")}
+                    {tab("/projects/software", "Software")}
+                    {tab("/projects/games", "Video Games")}
                 </div>
                 <div className="mt-8">
                 {filtered.length === 0 ? (

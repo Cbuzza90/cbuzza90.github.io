@@ -1,219 +1,67 @@
 import Section from '../components/Section.jsx'
 import Header from '../components/Header.jsx'
-import AnimatedTopBanner from '../components/AnimatedTopBanner.jsx'
-import ProjectCard from '../components/ProjectCard.jsx'
-import { portfolioProjects } from '../data/portfolioProjects.js'
-
-function DevTypeButton({ href, title, children, icon, bgClass = '' }) {
-    return (
-        <a
-            href={href}
-            className={
-                `
-                group relative rounded-2xl border dark:border-zinc-800
-                p-6 md:p-8
-                bg-white/95 dark:bg-zinc-950/95
-                hover:shadow-lg transition-shadow
-                focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-700
-                overflow-hidden
-                ` + ' ' + bgClass
-            }
-            aria-label={title}
-        >
-            {/* soft overlay to keep text readable on gradients */}
-            <div className="pointer-events-none absolute inset-0 bg-white/40 dark:bg-zinc-950/40 mix-blend-soft-light" />
-
-            <div className="relative flex items-start gap-4">
-                <div className="rounded-xl border bg-white/70 dark:bg-zinc-900/70 dark:border-zinc-800 p-3">
-                    {icon}
-                </div>
-                <div>
-                    <h3 className="text-lg md:text-xl font-semibold">{title}</h3>
-                    <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                        {children}
-                    </p>
-                </div>
-            </div>
-            <div className="relative mt-4 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
-                <span className="opacity-80 group-hover:opacity-100 transition">
-                    Explore →
-                </span>
-            </div>
-        </a>
-    )
-}
+import AnimatedTopBanner, { SoldierBattlefield } from '../components/AnimatedTopBanner.jsx'
+import WorkCategories from '../components/WorkCategories.jsx'
 
 export default function Home() {
     return (
         <>
-            <AnimatedTopBanner />
             <Header />
+            <AnimatedTopBanner />
 
-            <Section id="featured" title="Selected work" subtitle="A few projects that show how I approach useful tools and interactive systems">
-                <div className="grid gap-5 md:grid-cols-3">
-                    {portfolioProjects.slice(0, 3).map((project) => <ProjectCard key={project.id} {...project} />)}
-                </div>
-                <a href="/projects" className="mt-5 inline-flex text-sm font-semibold text-blue-700 underline underline-offset-4 dark:text-blue-400">View all projects →</a>
+            <Section
+                id="featured"
+                title="Selected work"
+                subtitle="Aviation first, with software and games that shaped how I build. Open a category to explore its projects."
+            >
+                <WorkCategories />
             </Section>
 
-            {/* Development Types */}
-            <Section
-                id="dev-types"
-                title="Explore by discipline"
-                subtitle="See more about the tools, games and interfaces I build"
-            >
-                <div className="grid md:grid-cols-3 gap-5">
-                    {/* Game Development */}
-                    <DevTypeButton
-                        href="/game"
-                        title="Game Development"
-                        bgClass="bg-gradient-to-br from-violet-50 via-fuchsia-50 to-slate-50 dark:from-violet-950/60 dark:via-fuchsia-950/40 dark:to-slate-950/60"
-                        icon={
-                            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
-                                <path
-                                    d="M7 12h10M8 8h2M8 16h2M14 9h2M14 15h2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                                <rect
-                                    x="3.5"
-                                    y="6.5"
-                                    width="17"
-                                    height="11"
-                                    rx="3"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                            </svg>
-                        }
-                    >
-                        Prototypes, tools, design docs, and builds for web or desktop.
-                    </DevTypeButton>
-
-                    {/* App Development */}
-                    <DevTypeButton
-                        href="/app/vetinventory"
-                        title="App Development"
-                        bgClass="bg-gradient-to-br from-emerald-50 via-teal-50 to-slate-50 dark:from-emerald-950/60 dark:via-teal-950/40 dark:to-slate-950/60"
-                        icon={
-                            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
-                                <rect
-                                    x="6.5"
-                                    y="2.5"
-                                    width="11"
-                                    height="19"
-                                    rx="2.5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                                <circle cx="12" cy="18" r="1" fill="currentColor" />
-                            </svg>
-                        }
-                    >
-                        Practical apps with clear workflows, responsive interfaces and reliable data.
-                    </DevTypeButton>
-
-                    {/* Web Development */}
-                    <DevTypeButton
-                        href="/projects/websites"
-                        title="Web Development"
-                        bgClass="bg-gradient-to-br from-amber-50 via-orange-50 to-slate-50 dark:from-amber-950/60 dark:via-orange-950/40 dark:to-slate-950/60"
-                        icon={
-                            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-80">
-                                <path
-                                    d="M3 5h18v14H3zM3 9h18M9 19V9"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        }
-                    >
-                        Responsive sites and web interfaces built with React and modern tooling.
-                    </DevTypeButton>
-                </div>
-            </Section>
-
-            {/* About Me */}
-            <Section
-                id="about"
-                title="About"
-                subtitle="How I approach software and design"
-            >
-                <div className="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
-                    <div className="space-y-4 text-sm md:text-base text-zinc-700 dark:text-zinc-300">
+            <Section id="about" title="About" subtitle="The person behind the projects" className="pt-4 md:pt-8">
+                <div className="grid items-start gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+                    <div className="space-y-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 md:text-base">
                         <p>
-                            I&apos;m Chris, a Mohawk Computer Systems Technician – Software Support graduate. I enjoy turning complicated workflows into clear, usable software.
+                            I&apos;m Chris, a Mohawk Computer Systems Technician – Software Support graduate with a growing focus on aviation. I enjoy turning complicated workflows into clear, usable tools.
                         </p>
                         <p>
-                            My projects include an aviation study platform, a veterinary inventory tool, Unity game prototypes and responsive websites. Across them, I focus on thoughtful interfaces, useful systems and steady iteration.
+                            I built an aviation study platform for my technician group, alongside a veterinary inventory app, game prototypes and responsive websites. I bring the same attention to practical details across all of them.
                         </p>
                         <p>
-                            I like understanding the real task first, building a working version, and improving it through feedback.
+                            My approach is to understand the real task, build a working version and improve it through feedback.
                         </p>
                     </div>
-
-                    <div className="space-y-3 text-xs md:text-sm">
-                        <div className="rounded-2xl border dark:border-zinc-800 bg-white/70 dark:bg-zinc-950/70 p-4">
-                            <h3 className="text-sm font-semibold mb-2">
-                                Quick stats
-                            </h3>
-                            <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
-                                <li>• Based in Canada 🇨🇦</li>
-                                <li>• Building: vet inventory tools & Sector 88: Clanker Protocol</li>
-                                <li>• Tech: React, Vite, Node/Express, MySQL, Unity, Godot</li>
-                                <li>• Enjoys: systems design, pixel-y games, tinkering</li>
-                            </ul>
-                        </div>
-
-                        <div className="rounded-2xl border border-dashed dark:border-zinc-700 bg-zinc-50/70 dark:bg-zinc-900/60 p-4">
-                            <p className="font-medium mb-1">
-                                What I&apos;m looking for
-                            </p>
-                            <p className="text-zinc-600 dark:text-zinc-400">
-                                Software development roles and select freelance projects where I can combine interface design, logic and practical problem solving.
-                            </p>
-                        </div>
+                    <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 dark:border-sky-900 dark:bg-sky-950/40">
+                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-700 dark:text-sky-300">Current focus</p>
+                        <h3 className="mt-3 text-xl font-semibold">Aviation + useful software</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                            Bringing software thinking into aviation learning and practical, everyday systems.
+                        </p>
+                        <a href="https://buzzasolutions.com/" target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-blue-700 underline underline-offset-4 dark:text-sky-300">Visit the aviation study site →</a>
                     </div>
                 </div>
             </Section>
 
-            {/* Contact */}
-            <Section id="contact" title="Contact" subtitle="Let’s talk about your project">
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="max-w-none">
+            <Section id="arcade" title="A little break" subtitle="The small interactive game is still here. Tap or click to shoot." className="pt-4 md:pt-8">
+                <div className="relative h-52 overflow-hidden rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-950 to-black sm:h-64">
+                    <SoldierBattlefield />
+                </div>
+            </Section>
+
+            <Section id="contact" title="Contact" subtitle="Let’s talk about your project" className="pt-4 md:pt-8">
+                <div className="grid gap-6 md:grid-cols-2">
+                    <div className="text-sm text-zinc-700 dark:text-zinc-300">
                         <p className="mb-3">The fastest ways to reach me:</p>
                         <ul className="space-y-2">
                             <li>
                                 Email{' '}
-                                <a
-                                    href="mailto:buzzasolutions@gmail.com"
-                                    className="font-medium underline underline-offset-2 text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                                >
-                                    buzzasolutions@gmail.com
-                                </a>
+                                <a href="mailto:buzzasolutions@gmail.com" className="font-medium text-blue-700 underline underline-offset-2 hover:text-blue-800 dark:text-sky-300">buzzasolutions@gmail.com</a>
                             </li>
                             <li>
                                 GitHub{' '}
-                                <a
-                                    href="https://github.com/Cbuzza90"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="font-medium underline underline-offset-2 text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                                >
-                                    Cbuzza90
-                                </a>
+                                <a href="https://github.com/Cbuzza90" target="_blank" rel="noreferrer" className="font-medium text-blue-700 underline underline-offset-2 hover:text-blue-800 dark:text-sky-300">Cbuzza90</a>
                             </li>
                         </ul>
                     </div>
-
                     <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900/50">
                         <h3 className="text-lg font-semibold">Have a project in mind?</h3>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">Tell me what you are building and where you need help. Email is the most reliable way to reach me.</p>

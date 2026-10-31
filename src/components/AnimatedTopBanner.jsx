@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-function SoldierBattlefield() {
+export function SoldierBattlefield() {
     const canvasRef = useRef(null)
     const containerRef = useRef(null)
     const soldiersRef = useRef([])
@@ -395,38 +395,31 @@ function SoldierBattlefield() {
 
 export default function AnimatedTopBanner() {
     return (
-        <section className="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 dark:border-zinc-800">
-            <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
-
-                <div className="space-y-3">
-                    <p className="text-4xl md:text-5xl font-semibold text-zinc-50">
-                        Chris Buzza
-                    </p>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
-                        Software developer · Canada
-                    </p>
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
-                        Practical apps. Interactive experiences.
+        <section className="relative isolate mx-auto mt-4 min-h-[520px] max-w-7xl overflow-hidden rounded-3xl bg-slate-950 text-white sm:min-h-[560px]">
+            <img
+                src="/images/aviation-software-banner.webp"
+                alt="Software workstations blending into an aircraft hangar and maintenance equipment"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                fetchPriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/15" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent" />
+            <div className="relative flex min-h-[520px] flex-col justify-between px-6 py-10 sm:min-h-[560px] sm:px-10 sm:py-12 lg:px-16">
+                <div className="max-w-2xl">
+                    <p className="text-xs font-bold uppercase tracking-[0.25em] text-sky-300">Chris Buzza · Software & aviation</p>
+                    <h1 className="mt-6 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                        Building where software meets aviation.
                     </h1>
-                    <p className="text-sm md:text-base text-zinc-400">
-                        I design and build software that makes complex tasks easier, from aviation study tools to veterinary inventory and game systems.
+                    <p className="mt-5 max-w-lg text-base leading-relaxed text-slate-200 sm:text-lg">
+                        I create practical tools for learning and work, drawing on software development, game systems and a growing focus on aviation.
                     </p>
-                    <div className="flex flex-wrap gap-3 pt-3">
-                        <a href="#featured" className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">View my work</a>
-                        <a href="#contact" className="rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold text-white transition hover:border-zinc-300">Get in touch</a>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                        <a href="#featured" className="rounded-lg bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Explore my work</a>
+                        <a href="#contact" className="rounded-lg border border-white/60 bg-slate-950/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get in touch</a>
                     </div>
                 </div>
-
-                {/* New interactive background battlefield */}
-                <div className="relative h-36 md:h-44 lg:h-48">
-                    <div className="absolute inset-0 rounded-2xl border border-zinc-800/60 bg-gradient-to-b from-slate-900 via-slate-950 to-black shadow-[0_18px_45px_rgba(0,0,0,0.75)]">
-                        <SoldierBattlefield />
-                    </div>
-                </div>
+                <p className="mt-10 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">Aviation <span className="mx-2 text-sky-300">/</span> Software <span className="mx-2 text-sky-300">/</span> Video games</p>
             </div>
-
-            {/* Soft vignette / glow, no lightning or flash anymore */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.09),transparent_65%)]" />
         </section>
     )
 }
