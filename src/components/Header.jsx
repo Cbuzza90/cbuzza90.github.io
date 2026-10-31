@@ -36,9 +36,9 @@ const quickItems = [
         ),
     },
     {
-        href: "/projects/software",
-        title: "Software",
-        desc: "Practical apps and web experiences.",
+        href: "/projects/software-games",
+        title: "Software & Video Games",
+        desc: "Apps, websites, prototypes and environments.",
         icon: (
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <rect x="3" y="4" width="18" height="16" rx="2" />
@@ -46,18 +46,6 @@ const quickItems = [
             </svg>
         ),
     },
-    {
-        href: "/projects/games",
-        title: "Video Games",
-        desc: "Gameplay prototypes and environments.",
-        icon: (
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <rect x="3.5" y="6.5" width="17" height="11" rx="3" />
-                <path d="M8 9h2M8 15h2M14 10h2M14 14h2" />
-            </svg>
-        ),
-    },
-
 ];
 
 export default function Header() {

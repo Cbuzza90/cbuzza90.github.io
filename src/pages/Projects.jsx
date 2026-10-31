@@ -9,8 +9,7 @@ import { portfolioProjects } from '../data/portfolioProjects.js'
 const CATEGORIES = [
     { key: "all", label: "All" },
     { key: "aviation", label: "Aviation" },
-    { key: "software", label: "Software" },
-    { key: "games", label: "Video Games" },
+    { key: "software-games", label: "Software & Video Games" },
 ];
 
 export default function Projects() {
@@ -20,14 +19,14 @@ export default function Projects() {
     const active = useMemo(() => {
         if (!category) return "all";
         const requested = category.toLowerCase();
-        if (requested === "apps" || requested === "websites") return "software";
+        if (["apps", "websites", "software", "games"].includes(requested)) return "software-games";
         const match = CATEGORIES.some((c) => c.key === requested);
         return match ? requested : "all";
     }, [category]);
 
     const filtered = useMemo(() => {
         if (active === "all") return portfolioProjects;
-        return portfolioProjects.filter((p) => p.area === active);
+        return portfolioProjects.filter((p) => active === 'aviation' ? p.area === 'aviation' : ['software', 'games'].includes(p.area));
     }, [active]);
 
     const tab = (to, label) => (
@@ -54,12 +53,11 @@ export default function Projects() {
             <Header />
             <Section>
                 <h1 className="text-3xl font-semibold md:text-4xl">Projects</h1>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Explore aviation, software and video game projects.</p>
+                <p className="mt-2 text-zinc-600 dark:text-zinc-400">Explore aviation projects and my software and video game work.</p>
                 <div className="mt-6 flex flex-wrap items-center gap-2">
                     {tab("/projects", "All")}
                     {tab("/projects/aviation", "Aviation")}
-                    {tab("/projects/software", "Software")}
-                    {tab("/projects/games", "Video Games")}
+                    {tab("/projects/software-games", "Software & Video Games")}
                 </div>
                 <div className="mt-8">
                 {filtered.length === 0 ? (

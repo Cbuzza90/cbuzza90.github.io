@@ -1,7 +1,8 @@
 import Section from '../components/Section.jsx'
 import Header from '../components/Header.jsx'
-import AnimatedTopBanner, { SoldierBattlefield } from '../components/AnimatedTopBanner.jsx'
+import AnimatedTopBanner from '../components/AnimatedTopBanner.jsx'
 import WorkCategories from '../components/WorkCategories.jsx'
+import PlaneGame from '../components/PlaneGame.jsx'
 
 export default function Home() {
     return (
@@ -12,7 +13,7 @@ export default function Home() {
             <Section
                 id="featured"
                 title="Selected work"
-                subtitle="Aviation first, with software and games that shaped how I build. Open a category to explore its projects."
+                subtitle="Aviation alongside the software and games that shaped how I build. Open a category to explore its projects."
             >
                 <WorkCategories />
             </Section>
@@ -41,10 +42,8 @@ export default function Home() {
                 </div>
             </Section>
 
-            <Section id="arcade" title="A little break" subtitle="The small interactive game is still here. Tap or click to shoot." className="pt-4 md:pt-8">
-                <div className="relative h-52 overflow-hidden rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900 via-slate-950 to-black sm:h-64">
-                    <SoldierBattlefield />
-                </div>
+            <Section id="arcade" title="Take a flight" subtitle="A little aviation break: collect rings and steer clear of storm clouds." className="pt-4 md:pt-8">
+                <PlaneGame />
             </Section>
 
             <Section id="contact" title="Contact" subtitle="Let’s talk about your project" className="pt-4 md:pt-8">
