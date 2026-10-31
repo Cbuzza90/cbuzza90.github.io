@@ -10,6 +10,14 @@ export default function Home() {
             <Header />
             <AnimatedTopBanner />
 
+            <section id="arcade" className="container pb-4 pt-8 md:pt-10">
+                <div className="mb-6">
+                    <h2 className="text-2xl font-semibold md:text-3xl">Take a flight</h2>
+                    <p className="mt-2 text-zinc-600 dark:text-zinc-400">A little aviation break: collect rings and steer clear of storm clouds.</p>
+                </div>
+                <PlaneGame />
+            </section>
+
             <Section
                 id="featured"
                 title="Selected work"
@@ -40,10 +48,6 @@ export default function Home() {
                         <a href="https://buzzasolutions.com/" target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-blue-700 underline underline-offset-4 dark:text-sky-300">Visit the aviation study site →</a>
                     </div>
                 </div>
-            </Section>
-
-            <Section id="arcade" title="Take a flight" subtitle="A little aviation break: collect rings and steer clear of storm clouds." className="pt-4 md:pt-8">
-                <PlaneGame />
             </Section>
 
             <Section id="contact" title="Contact" subtitle="Let’s talk about your project" className="pt-4 md:pt-8">

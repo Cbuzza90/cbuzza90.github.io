@@ -254,7 +254,7 @@ export default function PlaneGame() {
                     <span>Lives <strong className="text-rose-300">{lives}</strong></span>
                 </div>
             </div>
-            <div className="relative h-64 sm:h-80">
+            <div className="relative h-52 sm:h-64">
                 <canvas
                     ref={canvasRef}
                     tabIndex={0}
