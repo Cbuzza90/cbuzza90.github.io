@@ -5,7 +5,20 @@ export default function ProjectCard({ title, brief, role, image, imageAlt, video
     return (
         <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
             <a href={mediaHref} target={externalMediaLink ? '_blank' : undefined} rel={externalMediaLink ? 'noreferrer' : undefined} aria-label={`View ${title}`} className="relative block aspect-[16/10] overflow-hidden bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">
-                {video ? (
+                {video && visual === 'vet-phone' ? (
+                    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-cyan-950">
+                        <div className="absolute h-[85%] aspect-square rounded-full border border-sky-400/20 bg-sky-400/10 blur-xl" />
+                        <div className="relative h-[92%] aspect-[9/19.5] rounded-[1.6rem] border-[3px] border-zinc-600 bg-zinc-950 p-[5px] shadow-[0_16px_35px_rgba(0,0,0,0.7)]">
+                            <div className="pointer-events-none absolute -left-[4px] top-[19%] h-[12%] w-[3px] rounded-full bg-zinc-500" />
+                            <div className="pointer-events-none absolute -right-[4px] top-[30%] h-[17%] w-[3px] rounded-full bg-zinc-500" />
+                            <div className="relative h-full w-full overflow-hidden rounded-[1.25rem] bg-black">
+                                <video src={video} aria-label={imageAlt || title} autoPlay muted loop playsInline preload="metadata" className="pointer-events-none h-full w-full object-cover" />
+                                <div className="pointer-events-none absolute left-1/2 top-[5px] h-[5%] w-[38%] -translate-x-1/2 rounded-full bg-zinc-950" />
+                                <div className="pointer-events-none absolute bottom-[5px] left-1/2 h-[3px] w-[34%] -translate-x-1/2 rounded-full bg-zinc-300/80" />
+                            </div>
+                        </div>
+                    </div>
+                ) : video ? (
                     <video src={video} aria-label={imageAlt || title} autoPlay muted loop playsInline preload="metadata" className="pointer-events-none h-full w-full object-cover" />
                 ) : image ? (
                     <img src={image} alt={imageAlt || title} loading="lazy" className="h-full w-full object-cover" />

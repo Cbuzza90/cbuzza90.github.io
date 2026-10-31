@@ -11,7 +11,7 @@ export const portfolioProjects = [
         id: 'vet-inventory', title: 'Vet Inventory System', category: 'apps', area: 'software',
         brief: 'A mobile-friendly inventory tool designed around the way a veterinary surgery team finds and counts supplies.',
         role: 'Solo developer · UI, API, database and authentication',
-        video: '/images/VetApp/VetApp1.mp4', imageAlt: 'Vet Inventory app interface preview',
+        video: '/images/VetApp/VetApp1.mp4', visual: 'vet-phone', imageAlt: 'Vet Inventory app interface preview',
         tech: ['React', 'Express', 'MySQL'],
         links: { github: 'https://github.com/Cbuzza90/VetInventorySystem', caseStudy: '/app/vetinventory' },
     },
