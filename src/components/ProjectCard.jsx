@@ -1,9 +1,12 @@
 export default function ProjectCard({ title, brief, role, image, imageAlt, video, visual, status, tech = [], links = {} }) {
+    const mediaHref = links.caseStudy || links.demo || links.github
+    const externalMediaLink = /^https?:\/\//.test(mediaHref || '')
+
     return (
         <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
-            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
+            <a href={mediaHref} target={externalMediaLink ? '_blank' : undefined} rel={externalMediaLink ? 'noreferrer' : undefined} aria-label={`View ${title}`} className="relative block aspect-[16/10] overflow-hidden bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">
                 {video ? (
-                    <video src={video} aria-label={imageAlt || title} autoPlay muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
+                    <video src={video} aria-label={imageAlt || title} autoPlay muted loop playsInline preload="metadata" className="pointer-events-none h-full w-full object-cover" />
                 ) : image ? (
                     <img src={image} alt={imageAlt || title} loading="lazy" className="h-full w-full object-cover" />
                 ) : visual === 'study' ? (
@@ -27,7 +30,7 @@ export default function ProjectCard({ title, brief, role, image, imageAlt, video
                     </div>
                 ) : null}
                 {status && <span className="absolute right-3 top-3 rounded-md bg-zinc-950/90 px-2 py-1 text-xs font-bold tracking-wider text-white">{status}</span>}
-            </div>
+            </a>
             <div className="flex flex-1 flex-col p-5">
                 <h3 className="text-lg font-semibold">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">{brief}</p>
