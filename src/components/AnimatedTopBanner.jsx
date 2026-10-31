@@ -11,7 +11,7 @@ export default function AnimatedTopBanner() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent" />
             <div className="relative flex min-h-[450px] flex-col justify-between px-6 py-8 sm:min-h-[430px] sm:px-10 sm:py-10 lg:px-16">
                 <div className="max-w-2xl">
-                    <p className="text-xs font-bold uppercase tracking-[0.25em] text-sky-300">Chris Buzza · Software & aviation</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-300">Chris Buzza · Aviation — Current Mohawk Avionics Student</p>
                     <h1 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
                         Building where software meets aviation.
                     </h1>
@@ -23,7 +23,7 @@ export default function AnimatedTopBanner() {
                         <a href="#contact" className="rounded-lg border border-white/60 bg-slate-950/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get in touch</a>
                     </div>
                 </div>
-                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">Aviation <span className="mx-2 text-sky-300">/</span> Software & Video Games</p>
+                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">Aviation <span className="mx-2 text-sky-300">/</span> Video Games <span className="mx-2 text-sky-300">/</span> Software</p>
             </div>
         </section>
     )

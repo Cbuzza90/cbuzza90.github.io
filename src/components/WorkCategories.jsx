@@ -12,10 +12,18 @@ const workAreas = [
         eyebrow: 'text-sky-300',
     },
     {
-        id: 'software-games',
+        id: 'games',
         number: '02',
-        title: 'Software & Video Games',
-        description: 'Practical apps, responsive websites, game prototypes and environments.',
+        title: 'Video Games',
+        description: 'Gameplay prototypes and interactive environment work.',
+        accent: 'from-slate-900 via-indigo-950 to-slate-950',
+        eyebrow: 'text-indigo-300',
+    },
+    {
+        id: 'software',
+        number: '03',
+        title: 'Software',
+        description: 'Practical apps and clear, responsive websites.',
         accent: 'from-slate-900 via-cyan-950 to-slate-950',
         eyebrow: 'text-cyan-300',
     },
@@ -23,13 +31,7 @@ const workAreas = [
 
 function WorkArea({ area, initiallyOpen = false }) {
     const [open, setOpen] = useState(initiallyOpen)
-    const projects = portfolioProjects.filter((project) => area.id === 'aviation' ? project.area === 'aviation' : ['software', 'games'].includes(project.area))
-    const groups = area.id === 'aviation'
-        ? [{ label: null, projects }]
-        : [
-            { label: 'Software', projects: projects.filter((project) => project.area === 'software') },
-            { label: 'Video Games', projects: projects.filter((project) => project.area === 'games') },
-        ]
+    const projects = portfolioProjects.filter((project) => project.area === area.id)
 
     return (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
@@ -49,14 +51,9 @@ function WorkArea({ area, initiallyOpen = false }) {
                 <span aria-hidden="true" className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 text-2xl transition-transform ${open ? 'rotate-45' : 'group-hover:rotate-90'}`}>+</span>
             </button>
             <div id={`${area.id}-projects`} hidden={!open} className="p-4 sm:p-5">
-                {groups.map((group) => (
-                    <div key={group.label || area.id} className="mb-5 last:mb-0">
-                        {group.label && <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">{group.label}</h3>}
-                        <div className="grid gap-4">
-                            {group.projects.map((project) => <ProjectCard key={project.id} {...project} />)}
-                        </div>
-                    </div>
-                ))}
+                <div className="grid gap-4">
+                    {projects.map((project) => <ProjectCard key={project.id} {...project} />)}
+                </div>
             </div>
         </div>
     )
@@ -66,7 +63,10 @@ export default function WorkCategories() {
     return (
         <div className="grid items-start gap-5 lg:grid-cols-2">
             <WorkArea area={workAreas[0]} initiallyOpen />
-            <WorkArea area={workAreas[1]} />
+            <div className="grid gap-5">
+                <WorkArea area={workAreas[1]} />
+                <WorkArea area={workAreas[2]} />
+            </div>
         </div>
     )
 }
