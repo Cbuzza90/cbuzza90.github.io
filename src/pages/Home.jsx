@@ -1,6 +1,8 @@
 import Section from '../components/Section.jsx'
 import Header from '../components/Header.jsx'
 import AnimatedTopBanner from '../components/AnimatedTopBanner.jsx'
+import ProjectCard from '../components/ProjectCard.jsx'
+import { portfolioProjects } from '../data/portfolioProjects.js'
 
 function DevTypeButton({ href, title, children, icon, bgClass = '' }) {
     return (
@@ -47,11 +49,18 @@ export default function Home() {
             <AnimatedTopBanner />
             <Header />
 
+            <Section id="featured" title="Selected work" subtitle="A few projects that show how I approach useful tools and interactive systems">
+                <div className="grid gap-5 md:grid-cols-3">
+                    {portfolioProjects.slice(0, 3).map((project) => <ProjectCard key={project.id} {...project} />)}
+                </div>
+                <a href="/projects" className="mt-5 inline-flex text-sm font-semibold text-blue-700 underline underline-offset-4 dark:text-blue-400">View all projects →</a>
+            </Section>
+
             {/* Development Types */}
             <Section
                 id="dev-types"
-                title="Development Types"
-                subtitle="Pick a lane to dive deeper"
+                title="Explore by discipline"
+                subtitle="See more about the tools, games and interfaces I build"
             >
                 <div className="grid md:grid-cols-3 gap-5">
                     {/* Game Development */}
@@ -106,7 +115,7 @@ export default function Home() {
                             </svg>
                         }
                     >
-                        Cross-platform apps & PWAs with offline support and robust auth.
+                        Practical apps with clear workflows, responsive interfaces and reliable data.
                     </DevTypeButton>
 
                     {/* Web Development */}
@@ -127,7 +136,7 @@ export default function Home() {
                             </svg>
                         }
                     >
-                        Responsive sites and full-stack apps using Vite/React and clean deployments.
+                        Responsive sites and web interfaces built with React and modern tooling.
                     </DevTypeButton>
                 </div>
             </Section>
@@ -136,26 +145,18 @@ export default function Home() {
             <Section
                 id="about"
                 title="About"
-                subtitle="Who I am & what I like building"
+                subtitle="How I approach software and design"
             >
                 <div className="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
                     <div className="space-y-4 text-sm md:text-base text-zinc-700 dark:text-zinc-300">
                         <p>
-                            I&apos;m Chris, a Mohawk Computer Systems Technician - Software Support graduate and self-taught game developer in training and tech tinkerer who
-                            likes taking messy ideas and turning them into something you
-                            can actually click, tap, and play with.
+                            I&apos;m Chris, a Mohawk Computer Systems Technician – Software Support graduate. I enjoy turning complicated workflows into clear, usable software.
                         </p>
                         <p>
-                            Recently I&apos;ve been bouncing between building a vet-hospital
-                            inventory tool, experimenting with post-apocalyptic strategy
-                            game ideas, and polishing this portfolio. I care a lot about
-                            clean UI, systems that feel &quot;alive&quot;, and solving real
-                            problems or creating creative systems.
+                            My projects range from a veterinary inventory tool to Unity game prototypes and responsive websites. Across them, I focus on thoughtful interfaces, useful systems and steady iteration.
                         </p>
                         <p>
-                            If you like the idea of playful interfaces, tactical systems,
-                            or just need someone who&apos;s happy to obsess over your
-                            problem until it works, you&apos;re in the right place.
+                            I like understanding the real task first, building a working version, and improving it through feedback.
                         </p>
                     </div>
 
@@ -167,7 +168,7 @@ export default function Home() {
                             <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
                                 <li>• Based in Canada 🇨🇦</li>
                                 <li>• Building: vet inventory tools & Sector 88: Clanker Protocol</li>
-                                <li>• Tech: React, Vite, Node/Express, MySQL, Unity, GoDot</li>
+                                <li>• Tech: React, Vite, Node/Express, MySQL, Unity, Godot</li>
                                 <li>• Enjoys: systems design, pixel-y games, tinkering</li>
                             </ul>
                         </div>
@@ -177,9 +178,7 @@ export default function Home() {
                                 What I&apos;m looking for
                             </p>
                             <p className="text-zinc-600 dark:text-zinc-400">
-                                Freelance-style projects, Indie companies, or startups!
-                                Somewhere I can mix UI, logic, creativity, and a bit
-                                of game-like thinking to make something feel smoother or more fun to use.
+                                Software development roles and select freelance projects where I can combine interface design, logic and practical problem solving.
                             </p>
                         </div>
                     </div>
@@ -215,34 +214,11 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <form
-                        className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950"
-                        action="https://formspree.io/f/your-id"
-                        method="POST"
-                    >
-                        <label className="block text-sm font-medium">Your Email</label>
-                        <input
-                            name="email"
-                            type="email"
-                            required
-                            className="mt-1 w-full border rounded-lg px-3 py-2 bg-white dark:bg-zinc-900 dark:border-zinc-800"
-                            placeholder="you@example.com"
-                        />
-                        <label className="block text-sm font-medium mt-4">Message</label>
-                        <textarea
-                            name="message"
-                            rows="4"
-                            required
-                            className="mt-1 w-full border rounded-lg px-3 py-2 bg-white dark:bg-zinc-900 dark:border-zinc-800"
-                            placeholder="How can I help?"
-                        />
-                        <button
-                            className="mt-4 px-4 py-2 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-sm"
-                            type="submit"
-                        >
-                            Send
-                        </button>
-                    </form>
+                    <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900/50">
+                        <h3 className="text-lg font-semibold">Have a project in mind?</h3>
+                        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">Tell me what you are building and where you need help. Email is the most reliable way to reach me.</p>
+                        <a href="mailto:buzzasolutions@gmail.com?subject=Project%20inquiry" className="mt-4 inline-flex rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400">Email Chris</a>
+                    </div>
                 </div>
             </Section>
         </>

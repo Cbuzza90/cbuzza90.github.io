@@ -1,7 +1,9 @@
 // src/components/Header.jsx
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom"; // ⬅️ add this
+import { Link } from "react-router-dom";
+
+const MotionDiv = motion.div;
 
 function ThemeToggle() {
     function toggle() {
@@ -21,7 +23,6 @@ function ThemeToggle() {
     );
 }
 
-// ⬇️ match these to your real routes
 const quickItems = [
     {
         href: "/game",
@@ -37,7 +38,7 @@ const quickItems = [
     {
         href: "/app/vetinventory",
         title: "App Development",
-        desc: "Cross-platform apps & PWAs with offline support.",
+        desc: "Inventory tools and practical application design.",
         icon: (
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
@@ -119,6 +120,9 @@ export default function Header() {
                         <Link to="/" className={link}>
                             Home
                         </Link>
+                        <Link to="/projects" className={link}>
+                            Projects
+                        </Link>
                         {/* Quick Nav (desktop dropdown) */}
                         <div className="relative" ref={quickRef}>
                             <button
@@ -142,7 +146,7 @@ export default function Header() {
 
                             <AnimatePresence>
                                 {openQuick && (
-                                    <motion.div
+                                    <MotionDiv
                                         key="quick-desktop"
                                         role="menu"
                                         initial={{ opacity: 0, y: 6 }}
@@ -182,13 +186,13 @@ export default function Header() {
                                                 </li>
                                             ))}
                                         </ul>
-                                    </motion.div>
+                                    </MotionDiv>
                                 )}
                             </AnimatePresence>
                         </div>
 
                         <a
-                            href="#contact"
+                            href="/#contact"
                             className={[
                                 link,
                                 "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900",
@@ -229,7 +233,7 @@ export default function Header() {
                 <AnimatePresence>
                     {openMobile && (
                         <>
-                            <motion.div
+                            <MotionDiv
                                 key="backdrop"
                                 className="fixed inset-0 bg-black/30 md:hidden"
                                 initial={{ opacity: 0 }}
@@ -239,7 +243,7 @@ export default function Header() {
                                 onClick={() => setOpenMobile(false)}
                             />
 
-                            <motion.div
+                            <MotionDiv
                                 key="panel"
                                 id="mobile-menu"
                                 ref={menuRef}
@@ -257,8 +261,11 @@ export default function Header() {
                                     >
                                         Home
                                     </Link>
+                                    <Link to="/projects" className={link} onClick={() => setOpenMobile(false)}>
+                                        Projects
+                                    </Link>
                                     <a
-                                        href="#about"
+                                        href="/#about"
                                         className={link}
                                         onClick={() => setOpenMobile(false)}
                                     >
@@ -286,7 +293,7 @@ export default function Header() {
 
                                     <AnimatePresence>
                                         {openQuickMobile && (
-                                            <motion.div
+                                            <MotionDiv
                                                 key="quick-mobile"
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: "auto", opacity: 1 }}
@@ -326,12 +333,12 @@ export default function Header() {
                                                         </li>
                                                     ))}
                                                 </ul>
-                                            </motion.div>
+                                            </MotionDiv>
                                         )}
                                     </AnimatePresence>
 
                                     <a
-                                        href="#contact"
+                                        href="/#contact"
                                         className={[
                                             link,
                                             "w-full justify-center bg-zinc-900 text-white dark:bg-white dark:text-zinc-900",
@@ -341,7 +348,7 @@ export default function Header() {
                                         Contact
                                     </a>
                                 </div>
-                            </motion.div>
+                            </MotionDiv>
                         </>
                     )}
                 </AnimatePresence>

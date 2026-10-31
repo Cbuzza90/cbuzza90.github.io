@@ -399,25 +399,26 @@ export default function AnimatedTopBanner() {
             <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:p-10">
 
                 <div className="space-y-3">
-                    <p className="text-6xl md:text-6xl lg:text-6xl font-semibold text-zinc-50">
+                    <p className="text-4xl md:text-5xl font-semibold text-zinc-50">
                         Chris Buzza
                     </p>
-                    <p className="text-[8px] font-semibold uppercase tracking-[0.35em] text-zinc-400">
-                        Designer • Learning Developer • Game Tinkerer
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
+                        Software developer · Canada
                     </p>
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-50">
-                        When creativity meets obsession, digital experiences get better.
+                        Practical apps. Interactive experiences.
                     </h1>
                     <p className="text-sm md:text-base text-zinc-400">
-                        From inventory tools for vet hospitals to post-apocalyptic
-                        strategy games — I build clean UI, lively systems,
-                        and tech that solves real problems.
+                        I design and build software that makes complex tasks easier, from veterinary inventory tools to game systems and responsive websites.
                     </p>
-                    {/* Drop your CTA buttons back in here if you had them */}
+                    <div className="flex flex-wrap gap-3 pt-3">
+                        <a href="#featured" className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">View my work</a>
+                        <a href="#contact" className="rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold text-white transition hover:border-zinc-300">Get in touch</a>
+                    </div>
                 </div>
 
                 {/* New interactive background battlefield */}
-                <div className="relative h-48 md:h-56 lg:h-64">
+                <div className="relative h-36 md:h-44 lg:h-48">
                     <div className="absolute inset-0 rounded-2xl border border-zinc-800/60 bg-gradient-to-b from-slate-900 via-slate-950 to-black shadow-[0_18px_45px_rgba(0,0,0,0.75)]">
                         <SoldierBattlefield />
                     </div>

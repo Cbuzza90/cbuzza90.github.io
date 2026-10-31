@@ -138,7 +138,7 @@ export default function ThisPage() {
                                 <span className="ml-1.5 text-[10px]">↩</span>
                             </Link>
                             <a
-                                href="https://github.com/Cbuzza90"
+                                href="https://github.com/Cbuzza90/cbuzza90.github.io"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="inline-flex items-center rounded-full px-4 py-1.5 text-xs md:text-sm border border-zinc-200 dark:border-zinc-800"

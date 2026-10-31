@@ -45,9 +45,6 @@ function getProjectPath(id) {
             return '/game/acg'
         case 'Enviroments':
             return '/game/environments'
-        case 'Sector88':
-            // placeholder until you make a page for it
-            return '/game'
         default:
             return '/game'
     }
@@ -90,18 +87,13 @@ export default function Game() {
         const fallback = [
             {
                 id: 'ACG',
-                title: '  ',
+                title: 'A Champion’s Gauntlet',
                 thumb: null, // replaced by GIF slideshow
             },
             {
                 id: 'Enviroments',
-                title: '  ',
+                title: 'Game Environments',
                 thumb: null, // replaced by slideshow
-            },
-            {
-                id: 'Sector88',
-                title: '  ',
-                thumb: '/images/Sector88/Sector88_CoverPhoto2.png',
             },
         ]
         setProjects(fallback)

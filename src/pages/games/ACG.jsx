@@ -77,13 +77,12 @@ export default function ACG() {
             <Section className="pt-2">
                 <h1 className="text-3xl md:text-5xl font-semibold">A Champion’s Gauntlet</h1>
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl">
-                    Pixel-art action roguelite prototype. Chain boss fights, dodge telegraphed patterns, and
-                    build your spell kit run-to-run inside a modular gauntlet of rooms.
+                    A Unity action game prototype where I explored combat feel, spell interactions, and quick-access inventory controls.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
                     <a
-                        href="https://github.com/Cbuzza90"
+                        href="https://github.com/Cbuzza90/A_Champions_Gauntlet"
                         target="_blank"
                         rel="noreferrer"
                         className="rounded-lg px-4 py-2 text-sm border dark:border-zinc-800"
@@ -91,9 +90,9 @@ export default function ACG() {
                         GitHub
                     </a>
                     <div className="hidden sm:flex items-center gap-2">
-                        <Pill>Vite/React</Pill>
-                        <Pill>Canvas/WebGL</Pill>
-                        <Pill>Roguelite Boss Rush</Pill>
+                        <Pill>Unity</Pill>
+                        <Pill>C#</Pill>
+                        <Pill>Action game prototype</Pill>
                         <Pill>On Hold</Pill>
                     </div>
                 </div>
@@ -103,14 +102,10 @@ export default function ACG() {
             <Section title="About">
                 <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
                     <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                        <strong>A Champion’s Gauntlet (ACG)</strong> started as a fast-iteration playground for
-                        combat feel. I used it to intiially learn unity, sprite sheets, tried skeleton animations, and learned how to use the unity input system, well creating a skill inventory type system. The goal was a tight loop, explore a small zone, trigger
-                        a boss, survive, collect rewards, and immediately roll into the next fight.
+                        <strong>A Champion’s Gauntlet (ACG)</strong> was a hands-on way for me to learn Unity while experimenting with sprite sheets, animation, input, spells, and inventory controls. The gameplay clips below show some of those systems in motion.
                     </p>
                     <p className="mt-3 text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                        The project is currently <span className="font-semibold">on hold</span> while I focus on
-                        shipping more production-ready work(like{' '}
-                        <span className="font-semibold">Sector 88: Clanker Protocol</span>), but the knowledge I learned well making mistakes while trying to make this were important.
+                        The project is currently <span className="font-semibold">on hold</span>. It helped me learn how to prototype quickly, test interactions, and turn early mistakes into better design decisions.
                     </p>
                 </div>
             </Section>
@@ -118,7 +113,7 @@ export default function ACG() {
             {/* Design Notes & Inspiration */}
             <Section
                 title="Design Notes & Inspiration"
-                subtitle="Where the idea came from and what I was experimenting with"
+                subtitle="The direction I explored, including ideas that were not completed"
             >
                 <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950 space-y-3">
                     <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
@@ -147,53 +142,38 @@ export default function ACG() {
                     </ul>
 
                     <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                        Eventually I paused development — I needed to prioritize getting a job and client-ready
-                        portfolio work. That pivot led me into collaborating on{' '}
-                        <span className="font-semibold">Sector 88: Clanker Protocol</span>, where a lot of these
-                        ideas (encounter pacing, telegraphs, and systemic design) are being recycled in a more
-                        ambitious setting.
+                        These were design goals for the prototype, not a list of finished features. The gallery below shows the interactions I can demonstrate.
                     </p>
                 </div>
             </Section>
 
             {/* Feature Highlights */}
-            <Section title="Feature Highlights" subtitle="Systems I iterated on in this prototype">
+            <Section title="Prototype highlights" subtitle="Interactions shown in the gallery below">
                 <div className="grid sm:grid-cols-2 gap-5">
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
-                        <h3 className="text-lg font-semibold">Inventory & Loot</h3>
+                        <h3 className="text-lg font-semibold">Spell quick bind</h3>
                         <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
-                            <li>Grid inventory with stack rules & rarity colors</li>
-                            <li>Context actions (equip, drop, compare)</li>
-                            <li>Lightweight item JSON with a versioned schema</li>
+                            <li>Inventory hotkey and quick-bind interaction</li>
+                            <li>Sprite-based UI feedback</li>
                         </ul>
                     </div>
 
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
-                        <h3 className="text-lg font-semibold">Keybinds & Input</h3>
+                        <h3 className="text-lg font-semibold">Combat experiments</h3>
                         <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
-                            <li>Rebindable actions with conflict warnings</li>
-                            <li>Keyboard / controller abstraction layer</li>
-                            <li>Persisted profiles per slot</li>
+                            <li>Boomerang and lightning spell prototypes</li>
+                            <li>Melee attacks and portal spawns</li>
                         </ul>
                     </div>
 
                     <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
-                        <h3 className="text-lg font-semibold">Enemies & Boss</h3>
+                        <h3 className="text-lg font-semibold">What I learned</h3>
                         <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
-                            <li>Demon bat swarms with burst dive patterns</li>
-                            <li>Ice golem with phase-based armor shards</li>
-                            <li>Telegraphs tuned for readability at 60fps</li>
+                            <li>Unity input and animation workflows</li>
+                            <li>Iterating on gameplay feel from visible feedback</li>
                         </ul>
                     </div>
 
-                    <div className="rounded-2xl border dark:border-zinc-800 p-5 bg-white dark:bg-zinc-950">
-                        <h3 className="text-lg font-semibold">Tech Goals</h3>
-                        <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
-                            <li>PWA build, offline saves</li>
-                            <li>Fixed-step update + interpolated rendering</li>
-                            <li>Deterministic replays (stretch goal)</li>
-                        </ul>
-                    </div>
                 </div>
             </Section>
 
