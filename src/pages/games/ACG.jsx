@@ -79,6 +79,10 @@ export default function ACG() {
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl">
                     A Unity action game prototype where I explored combat feel, spell interactions, and quick-access inventory controls.
                 </p>
+                <p className="mt-4 max-w-2xl rounded-xl border border-zinc-300 bg-zinc-100 p-4 text-sm text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+                    <strong className="mr-2 tracking-wider">CLOSED</strong>
+                    I closed this prototype because I wanted to focus on 3D development. The work below shows what I built and learned before that shift.
+                </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
                     <a
@@ -93,7 +97,7 @@ export default function ACG() {
                         <Pill>Unity</Pill>
                         <Pill>C#</Pill>
                         <Pill>Action game prototype</Pill>
-                        <Pill>On Hold</Pill>
+                        <Pill>Closed</Pill>
                     </div>
                 </div>
             </Section>
@@ -105,7 +109,7 @@ export default function ACG() {
                         <strong>A Champion’s Gauntlet (ACG)</strong> was a hands-on way for me to learn Unity while experimenting with sprite sheets, animation, input, spells, and inventory controls. The gameplay clips below show some of those systems in motion.
                     </p>
                     <p className="mt-3 text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                        The project is currently <span className="font-semibold">on hold</span>. It helped me learn how to prototype quickly, test interactions, and turn early mistakes into better design decisions.
+                        I decided to close the project and move toward 3D work. It helped me learn how to prototype quickly, test interactions, and turn early mistakes into better design decisions.
                     </p>
                 </div>
             </Section>

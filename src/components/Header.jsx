@@ -47,7 +47,7 @@ const quickItems = [
         ),
     },
     {
-        href: "/web/thispage",
+        href: "/projects/websites",
         title: "Web Development",
         desc: "React (Vite) frontends + Express APIs.",
         icon: (

@@ -409,7 +409,7 @@ export default function AnimatedTopBanner() {
                         Practical apps. Interactive experiences.
                     </h1>
                     <p className="text-sm md:text-base text-zinc-400">
-                        I design and build software that makes complex tasks easier, from veterinary inventory tools to game systems and responsive websites.
+                        I design and build software that makes complex tasks easier, from aviation study tools to veterinary inventory and game systems.
                     </p>
                     <div className="flex flex-wrap gap-3 pt-3">
                         <a href="#featured" className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">View my work</a>

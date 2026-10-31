@@ -87,7 +87,7 @@ export default function Game() {
         const fallback = [
             {
                 id: 'ACG',
-                title: 'A Champion’s Gauntlet',
+                title: 'A Champion’s Gauntlet — CLOSED',
                 thumb: null, // replaced by GIF slideshow
             },
             {

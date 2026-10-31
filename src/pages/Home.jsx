@@ -120,7 +120,7 @@ export default function Home() {
 
                     {/* Web Development */}
                     <DevTypeButton
-                        href="/web/thispage"
+                        href="/projects/websites"
                         title="Web Development"
                         bgClass="bg-gradient-to-br from-amber-50 via-orange-50 to-slate-50 dark:from-amber-950/60 dark:via-orange-950/40 dark:to-slate-950/60"
                         icon={
@@ -153,7 +153,7 @@ export default function Home() {
                             I&apos;m Chris, a Mohawk Computer Systems Technician – Software Support graduate. I enjoy turning complicated workflows into clear, usable software.
                         </p>
                         <p>
-                            My projects range from a veterinary inventory tool to Unity game prototypes and responsive websites. Across them, I focus on thoughtful interfaces, useful systems and steady iteration.
+                            My projects include an aviation study platform, a veterinary inventory tool, Unity game prototypes and responsive websites. Across them, I focus on thoughtful interfaces, useful systems and steady iteration.
                         </p>
                         <p>
                             I like understanding the real task first, building a working version, and improving it through feedback.
